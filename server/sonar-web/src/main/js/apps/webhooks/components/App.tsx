@@ -19,6 +19,7 @@
  */
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
+import PageActions from './PageActions';
 import PageHeader from './PageHeader';
 import WebhooksList from './WebhooksList';
 import { searchWebhooks } from '../../../api/webhooks';
@@ -41,6 +42,7 @@ export default class App extends React.PureComponent<Props, State> {
 
   componentDidMount() {
     this.mounted = true;
+    this.setState({ loading: true });
     this.fetchWebhooks();
   }
 
@@ -48,8 +50,7 @@ export default class App extends React.PureComponent<Props, State> {
     this.mounted = false;
   }
 
-  fetchWebhooks = ({ organization, component } = this.props) => {
-    this.setState({ loading: true });
+  fetchWebhooks = ({ organization, component } = this.props) =>
     searchWebhooks({
       organization: organization && organization.key,
       project: component && component.key
@@ -65,17 +66,32 @@ export default class App extends React.PureComponent<Props, State> {
         }
       }
     );
-  };
+
+  handleCreateWebhook = (webhook: Webhook) =>
+    this.setState(state => ({ webhooks: [...state.webhooks, webhook] }));
 
   render() {
     const { loading, webhooks } = this.state;
+    const organization = this.props.organization && this.props.organization.key;
+    const project = this.props.component && this.props.component.key;
+
     return (
       <div className="page page-limited">
         <Helmet title={translate('webhooks.page')} />
-        <PageHeader loading={loading} />
+
+        <PageHeader loading={loading}>
+          <PageActions
+            loading={loading}
+            onCreate={this.handleCreateWebhook}
+            organization={organization}
+            project={project}
+            webhooksCount={webhooks.length}
+          />
+        </PageHeader>
+
         {!loading && (
           <div className="boxed-group boxed-group-inner">
-            <WebhooksList webhooks={webhooks} />
+            <WebhooksList refreshWebhooks={this.fetchWebhooks} webhooks={webhooks} />
           </div>
         )}
       </div>

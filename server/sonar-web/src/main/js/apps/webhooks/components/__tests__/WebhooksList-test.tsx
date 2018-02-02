@@ -27,9 +27,19 @@ const webhooks = [
 ];
 
 it('should correctly render empty webhook list', () => {
-  expect(shallow(<WebhooksList webhooks={[]} />)).toMatchSnapshot();
+  expect(getWrapper({ webhooks: [] })).toMatchSnapshot();
 });
 
 it('should correctly render the webhooks', () => {
-  expect(shallow(<WebhooksList webhooks={webhooks} />)).toMatchSnapshot();
+  expect(getWrapper()).toMatchSnapshot();
 });
+
+function getWrapper(props = {}) {
+  return shallow(
+    <WebhooksList
+      webhooks={webhooks}
+      refreshWebhooks={jest.fn(() => Promise.resolve())}
+      {...props}
+    />
+  );
+}

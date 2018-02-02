@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should display the field as valid 1`] = `
+<div
+  className="modal-validation-field"
+>
+  <label>
+    Foo
+  </label>
+  <input
+    className="is-valid"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    type="text"
+    value=""
+  />
+  <i
+    className="text-success little-spacer-left icon-alert-ok"
+  />
+</div>
+`;
+
+exports[`should display the field with an error after edition 1`] = `
+<div
+  className="modal-validation-field"
+>
+  <label>
+    Foo
+  </label>
+  <input
+    className="has-error"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    type="text"
+    value=""
+  />
+  <i
+    className="text-danger little-spacer-left icon-alert-error"
+  />
+  <p
+    className="text-danger"
+  >
+    Wrong format
+  </p>
+</div>
+`;
+
+exports[`should display the field without any error/validation 1`] = `
+<div
+  className="modal-validation-field"
+>
+  <label>
+    Foo
+  </label>
+  <input
+    className=""
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    type="text"
+    value=""
+  />
+  <div
+    className="modal-field-description"
+  >
+    Describe Foo.
+  </div>
+</div>
+`;

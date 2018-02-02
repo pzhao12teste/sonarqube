@@ -18,6 +18,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 import * as React from 'react';
+import ConfirmButton from '../../../components/controls/ConfirmButton';
 import CustomRuleButton from './CustomRuleButton';
 import DeferredSpinner from '../../../components/common/DeferredSpinner';
 import RuleDetailsCustomRules from './RuleDetailsCustomRules';
@@ -30,7 +31,6 @@ import { Query, Activation } from '../query';
 import { Profile } from '../../../api/quality-profiles';
 import { getRuleDetails, deleteRule, updateRule } from '../../../api/rules';
 import { RuleActivation, RuleDetails as IRuleDetails } from '../../../app/types';
-import ConfirmButton from '../../../components/controls/ConfirmButton';
 import { translate, translateWithParameters } from '../../../helpers/l10n';
 
 interface Props {

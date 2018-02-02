@@ -18,11 +18,13 @@ exports[`should correctly render the webhooks 1`] = `
       <th>
         webhooks.url
       </th>
+      <th />
     </tr>
   </thead>
   <tbody>
     <WebhookItem
       key="1"
+      refreshWebhooks={[MockFunction]}
       webhook={
         Object {
           "key": "1",
@@ -33,6 +35,7 @@ exports[`should correctly render the webhooks 1`] = `
     />
     <WebhookItem
       key="2"
+      refreshWebhooks={[MockFunction]}
       webhook={
         Object {
           "key": "2",

@@ -24,5 +24,7 @@ import WebhookItem from '../WebhookItem';
 const webhook = { key: '1', name: 'my webhook', url: 'http://webhook.target' };
 
 it('should render correctly', () => {
-  expect(shallow(<WebhookItem webhook={webhook} />)).toMatchSnapshot();
+  expect(
+    shallow(<WebhookItem webhook={webhook} refreshWebhooks={jest.fn(() => Promise.resolve())} />)
+  ).toMatchSnapshot();
 });

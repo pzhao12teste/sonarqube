@@ -18,17 +18,22 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 import * as React from 'react';
+import WebhookActions from './WebhookActions';
 import { Webhook } from '../../../app/types';
 
 interface Props {
+  refreshWebhooks: () => Promise<void>;
   webhook: Webhook;
 }
 
-export default function WebhookItem({ webhook }: Props) {
+export default function WebhookItem({ refreshWebhooks, webhook }: Props) {
   return (
     <tr>
       <td>{webhook.name}</td>
       <td>{webhook.url}</td>
+      <td className="thin nowrap text-right">
+        <WebhookActions webhook={webhook} refreshWebhooks={refreshWebhooks} />
+      </td>
     </tr>
   );
 }

@@ -22,13 +22,13 @@ import * as classNames from 'classnames';
 import { Link } from 'react-router';
 import { Activation, Query } from '../query';
 import ActivationButton from './ActivationButton';
+import ConfirmButton from '../../../components/controls/ConfirmButton';
+import IssueTypeIcon from '../../../components/ui/IssueTypeIcon';
+import SeverityIcon from '../../../components/shared/SeverityIcon';
 import SimilarRulesFilter from './SimilarRulesFilter';
+import Tooltip from '../../../components/controls/Tooltip';
 import { Profile, deactivateRule } from '../../../api/quality-profiles';
 import { Rule, RuleInheritance } from '../../../app/types';
-import ConfirmButton from '../../../components/controls/ConfirmButton';
-import Tooltip from '../../../components/controls/Tooltip';
-import SeverityIcon from '../../../components/shared/SeverityIcon';
-import IssueTypeIcon from '../../../components/ui/IssueTypeIcon';
 import { translate, translateWithParameters } from '../../../helpers/l10n';
 
 interface Props {
