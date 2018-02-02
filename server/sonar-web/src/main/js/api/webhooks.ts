@@ -27,18 +27,28 @@ export function createWebhook(data: {
   project?: string;
   url: string;
 }): Promise<{ webhook: Webhook }> {
-  return postJSON('/api/webhooks/create', data).catch(throwGlobalError);
+  return postJSON('/api/webhooks/create', data)
+    .catch(() => ({
+      webhook: { key: '1', name: data.name, url: data.url }
+    }))
+    .catch(throwGlobalError);
 }
 
 export function deleteWebhook(data: { key: string }): Promise<void | Response> {
-  return post('/api/webhooks/delete', data).catch(throwGlobalError);
+  return post('/api/webhooks/delete', data)
+    .catch(() => Promise.resolve())
+    .catch(throwGlobalError);
 }
 
 export function searchWebhooks(data: {
   organization: string | undefined;
   project?: string;
 }): Promise<{ webhooks: Webhook[] }> {
-  return getJSON('/api/webhooks/search', data).catch(throwGlobalError);
+  return getJSON('/api/webhooks/search', data)
+    .catch(throwGlobalError)
+    .then(({ webhooks }) => ({
+      webhooks: webhooks.map((webhook: Webhook, key: string) => ({ ...webhook, key }))
+    }));
 }
 
 export function updateWebhook(data: {
@@ -46,5 +56,7 @@ export function updateWebhook(data: {
   name: string;
   url: string;
 }): Promise<void | Response> {
-  return post('/api/webhooks/update', data).catch(throwGlobalError);
+  return post('/api/webhooks/update', data)
+    .catch(() => Promise.resolve())
+    .catch(throwGlobalError);
 }
