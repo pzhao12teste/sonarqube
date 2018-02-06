@@ -115,7 +115,7 @@ public class SearchGroupsActionTest {
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(SELECTED, "all")
-      .executeProtobuf(SearchGroupsResponse.class);
+      .executeProtobufV3(SearchGroupsResponse.class);
 
     assertThat(response.getGroupsList()).extracting(SearchGroupsResponse.Group::getName, SearchGroupsResponse.Group::getDescription, SearchGroupsResponse.Group::getSelected)
       .containsExactlyInAnyOrder(
@@ -137,7 +137,7 @@ public class SearchGroupsActionTest {
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(SELECTED, "selected")
-      .executeProtobuf(SearchGroupsResponse.class);
+      .executeProtobufV3(SearchGroupsResponse.class);
 
     assertThat(response.getGroupsList()).extracting(SearchGroupsResponse.Group::getName, SearchGroupsResponse.Group::getDescription, SearchGroupsResponse.Group::getSelected)
       .containsExactlyInAnyOrder(
@@ -158,7 +158,7 @@ public class SearchGroupsActionTest {
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(SELECTED, "deselected")
-      .executeProtobuf(SearchGroupsResponse.class);
+      .executeProtobufV3(SearchGroupsResponse.class);
 
     assertThat(response.getGroupsList()).extracting(SearchGroupsResponse.Group::getName, SearchGroupsResponse.Group::getDescription, SearchGroupsResponse.Group::getSelected)
       .containsExactlyInAnyOrder(
@@ -183,7 +183,7 @@ public class SearchGroupsActionTest {
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(TEXT_QUERY, "UsErS")
       .setParam(SELECTED, "all")
-      .executeProtobuf(SearchGroupsResponse.class);
+      .executeProtobufV3(SearchGroupsResponse.class);
 
     assertThat(response.getGroupsList()).extracting(SearchGroupsResponse.Group::getName)
       .containsExactlyInAnyOrder(group1.getName(), group2.getName());
@@ -202,7 +202,7 @@ public class SearchGroupsActionTest {
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(SELECTED, "all")
-      .executeProtobuf(SearchGroupsResponse.class);
+      .executeProtobufV3(SearchGroupsResponse.class);
 
     assertThat(response.getGroupsList()).extracting(SearchGroupsResponse.Group::getName, SearchGroupsResponse.Group::hasDescription)
       .containsExactlyInAnyOrder(tuple(group.getName(), false));
@@ -226,7 +226,7 @@ public class SearchGroupsActionTest {
       .setParam(SELECTED, "all")
       .setParam(PAGE, "1")
       .setParam(PAGE_SIZE, "1")
-      .executeProtobuf(SearchGroupsResponse.class).getGroupsList())
+      .executeProtobufV3(SearchGroupsResponse.class).getGroupsList())
       .extracting(SearchGroupsResponse.Group::getName)
       .containsExactly(group1.getName());
 
@@ -237,7 +237,7 @@ public class SearchGroupsActionTest {
       .setParam(SELECTED, "all")
       .setParam(PAGE, "3")
       .setParam(PAGE_SIZE, "1")
-      .executeProtobuf(SearchGroupsResponse.class).getGroupsList())
+      .executeProtobufV3(SearchGroupsResponse.class).getGroupsList())
       .extracting(SearchGroupsResponse.Group::getName)
       .containsExactly(group3.getName());
 
@@ -248,7 +248,7 @@ public class SearchGroupsActionTest {
       .setParam(SELECTED, "all")
       .setParam(PAGE, "1")
       .setParam(PAGE_SIZE, "10")
-      .executeProtobuf(SearchGroupsResponse.class).getGroupsList())
+      .executeProtobufV3(SearchGroupsResponse.class).getGroupsList())
       .extracting(SearchGroupsResponse.Group::getName)
       .containsExactly(group1.getName(), group2.getName(), group3.getName());
   }
@@ -265,7 +265,7 @@ public class SearchGroupsActionTest {
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(SELECTED, "all")
-      .executeProtobuf(SearchGroupsResponse.class);
+      .executeProtobufV3(SearchGroupsResponse.class);
 
     assertThat(response.getGroupsList()).extracting(SearchGroupsResponse.Group::getName).containsExactlyInAnyOrder(group.getName());
   }
@@ -283,7 +283,7 @@ public class SearchGroupsActionTest {
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(SELECTED, "all")
-      .executeProtobuf(SearchGroupsResponse.class);
+      .executeProtobufV3(SearchGroupsResponse.class);
 
     assertThat(response.getGroupsList()).extracting(SearchGroupsResponse.Group::getName).containsExactlyInAnyOrder(group.getName());
   }
@@ -303,7 +303,7 @@ public class SearchGroupsActionTest {
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(SELECTED, "all")
-      .executeProtobuf(SearchGroupsResponse.class);
+      .executeProtobufV3(SearchGroupsResponse.class);
 
     assertThat(response.getGroupsList()).extracting(SearchGroupsResponse.Group::getName).containsExactlyInAnyOrder(group.getName());
   }
@@ -353,7 +353,7 @@ public class SearchGroupsActionTest {
       .setParam(PARAM_ORGANIZATION, organization.getKey())
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, FOO)
-      .executeProtobuf(SearchGroupsResponse.class);
+      .executeProtobufV3(SearchGroupsResponse.class);
   }
 
   @Test

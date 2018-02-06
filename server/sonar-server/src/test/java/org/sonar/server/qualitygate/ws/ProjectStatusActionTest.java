@@ -194,7 +194,7 @@ public class ProjectStatusActionTest {
 
     ProjectStatusResponse result = ws.newRequest()
       .setParam(PARAM_ANALYSIS_ID, snapshot.getUuid())
-      .executeProtobuf(ProjectStatusResponse.class);
+      .executeProtobufV3(ProjectStatusResponse.class);
 
     assertThat(result.getProjectStatus().getStatus()).isEqualTo(Status.NONE);
     assertThat(result.getProjectStatus().getConditionsCount()).isEqualTo(0);
@@ -208,7 +208,7 @@ public class ProjectStatusActionTest {
 
     ProjectStatusResponse result = ws.newRequest()
       .setParam(PARAM_PROJECT_ID, project.uuid())
-      .executeProtobuf(ProjectStatusResponse.class);
+      .executeProtobufV3(ProjectStatusResponse.class);
 
     assertThat(result.getProjectStatus().getStatus()).isEqualTo(Status.NONE);
     assertThat(result.getProjectStatus().getConditionsCount()).isEqualTo(0);
@@ -224,7 +224,7 @@ public class ProjectStatusActionTest {
 
     ws.newRequest()
       .setParam(PARAM_ANALYSIS_ID, snapshot.getUuid())
-      .executeProtobuf(ProjectStatusResponse.class);
+      .executeProtobufV3(ProjectStatusResponse.class);
   }
 
   @Test
@@ -237,7 +237,7 @@ public class ProjectStatusActionTest {
 
     ws.newRequest()
       .setParam(PARAM_ANALYSIS_ID, snapshot.getUuid())
-      .executeProtobuf(ProjectStatusResponse.class);
+      .executeProtobufV3(ProjectStatusResponse.class);
   }
 
   @Test
@@ -248,7 +248,7 @@ public class ProjectStatusActionTest {
 
     ProjectStatusResponse result = ws.newRequest()
       .setParam(PARAM_PROJECT_ID, project.uuid())
-      .executeProtobuf(ProjectStatusResponse.class);
+      .executeProtobufV3(ProjectStatusResponse.class);
 
     assertThat(result.getProjectStatus().getStatus()).isEqualTo(Status.NONE);
   }
@@ -263,7 +263,7 @@ public class ProjectStatusActionTest {
 
     ws.newRequest()
       .setParam(PARAM_ANALYSIS_ID, ANALYSIS_ID)
-      .executeProtobuf(ProjectStatusResponse.class);
+      .executeProtobufV3(ProjectStatusResponse.class);
   }
 
   @Test
@@ -278,7 +278,7 @@ public class ProjectStatusActionTest {
 
     ws.newRequest()
       .setParam(PARAM_ANALYSIS_ID, snapshot.getUuid())
-      .executeProtobuf(ProjectStatusResponse.class);
+      .executeProtobufV3(ProjectStatusResponse.class);
   }
 
   @Test

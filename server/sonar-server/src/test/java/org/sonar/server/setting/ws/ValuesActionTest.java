@@ -727,7 +727,7 @@ public class ValuesActionTest {
       .setParam("keys", "sonar.leak.period")
       .setParam("component", branch.getKey())
       .setParam("branch", branch.getBranch())
-      .executeProtobuf(ValuesWsResponse.class);
+      .executeProtobufV3(ValuesWsResponse.class);
 
     assertThat(result.getSettingsList()).hasSize(1);
     assertSetting(result.getSettings(0), "sonar.leak.period", "two", false);
@@ -745,7 +745,7 @@ public class ValuesActionTest {
       .setParam("keys", "sonar.leak.period")
       .setParam("component", branch.getKey())
       .setParam("branch", branch.getBranch())
-      .executeProtobuf(ValuesWsResponse.class);
+      .executeProtobufV3(ValuesWsResponse.class);
 
     assertThat(result.getSettingsList()).hasSize(1);
     assertSetting(result.getSettings(0), "sonar.leak.period", "two", true);
@@ -894,7 +894,7 @@ public class ValuesActionTest {
     if (componentKey != null) {
       request.setParam("component", componentKey);
     }
-    return request.executeProtobuf(ValuesWsResponse.class);
+    return request.executeProtobufV3(ValuesWsResponse.class);
   }
 
   private void logIn() {

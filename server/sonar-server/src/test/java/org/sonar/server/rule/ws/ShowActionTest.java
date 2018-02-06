@@ -19,7 +19,6 @@
  */
 package org.sonar.server.rule.ws;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
@@ -120,7 +119,7 @@ public class ShowActionTest {
 
     Rules.ShowResponse result = actionTester.newRequest()
       .setParam(PARAM_KEY, rule.getKey().toString())
-      .executeProtobuf(Rules.ShowResponse.class);
+      .executeProtobufV3(Rules.ShowResponse.class);
     assertThat(result.getRule()).extracting(Rule::getKey).containsExactly(rule.getKey().toString());
   }
 
@@ -131,7 +130,7 @@ public class ShowActionTest {
 
     Rules.ShowResponse result = actionTester.newRequest()
       .setParam(PARAM_KEY, rule.getKey().toString())
-      .executeProtobuf(Rules.ShowResponse.class);
+      .executeProtobufV3(Rules.ShowResponse.class);
     assertThat(result.getRule().getTags().getTagsList())
       .containsExactly(metadata.getTags().toArray(new String[0]));
   }
@@ -145,7 +144,7 @@ public class ShowActionTest {
     Rules.ShowResponse result = actionTester.newRequest()
         .setParam(PARAM_KEY, rule.getKey().toString())
         .setParam(PARAM_ORGANIZATION, organization.getKey())
-        .executeProtobuf(Rules.ShowResponse.class);
+        .executeProtobufV3(Rules.ShowResponse.class);
     assertThat(result.getRule().getTags().getTagsList())
       .containsExactly(metadata.getTags().toArray(new String[0]));
   }
@@ -183,7 +182,7 @@ public class ShowActionTest {
     assertThat(orgCaptor.getValue().getUuid()).isEqualTo(organization.getUuid());
     assertThat(ruleCaptor.getValue().getKey()).isEqualTo(rule.getKey());
 
-    Rules.ShowResponse result = response.getInputObject(Rules.ShowResponse.class);
+    Rules.ShowResponse result = response.getInputObjectV3(Rules.ShowResponse.class);
     Rule resultRule = result.getRule();
     assertEqual(rule, ruleMetadata, resultRule);
 
@@ -214,7 +213,7 @@ public class ShowActionTest {
       .setMediaType(PROTOBUF)
       .execute();
 
-    Rules.ShowResponse result = response.getInputObject(Rules.ShowResponse.class);
+    Rules.ShowResponse result = response.getInputObjectV3(Rules.ShowResponse.class);
     Rule resultRule = result.getRule();
     assertEqual(rule, ruleMetadata, resultRule);
 
@@ -390,7 +389,7 @@ public class ShowActionTest {
 
     Rules.ShowResponse result = actionTester.newRequest()
       .setParam("key", customRuleKey.toString())
-      .executeProtobuf(Rules.ShowResponse.class);
+      .executeProtobufV3(Rules.ShowResponse.class);
 
     Mockito.verify(macroInterpreter).interpret("&lt;div&gt;line1<br/>line2&lt;/div&gt;");
 

@@ -156,7 +156,7 @@ public class CopyActionTest {
     QualityGate response = ws.newRequest()
       .setParam(PARAM_ID, qualityGate.getId().toString())
       .setParam(PARAM_NAME, "new-name")
-      .executeProtobuf(QualityGate.class);
+      .executeProtobufV3(QualityGate.class);
 
     assertThat(response).isNotNull();
     assertThat(response.getId()).isNotEqualTo(qualityGate.getId());

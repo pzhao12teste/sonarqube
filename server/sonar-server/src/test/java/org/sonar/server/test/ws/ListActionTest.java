@@ -405,7 +405,7 @@ public class ListActionTest {
 
   private static ListResponse call(TestRequest request) {
     return request
-      .executeProtobuf(ListResponse.class);
+      .executeProtobufV3(ListResponse.class);
   }
 
 }

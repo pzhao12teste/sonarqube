@@ -43,7 +43,6 @@ import org.sonar.server.tester.UserSessionRule;
 import org.sonar.server.ws.WsActionTester;
 import org.sonarqube.ws.Ce;
 import org.sonarqube.ws.Common;
-import org.sonarqube.ws.Ce;
 
 import static java.util.Collections.singleton;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -91,7 +90,7 @@ public class TaskActionTest {
 
     Ce.TaskResponse taskResponse = ws.newRequest()
       .setParam("id", SOME_TASK_UUID)
-      .executeProtobuf(Ce.TaskResponse.class);
+      .executeProtobufV3(Ce.TaskResponse.class);
     assertThat(taskResponse.getTask().getOrganization()).isEqualTo(organizationDto.getKey());
     assertThat(taskResponse.getTask().getId()).isEqualTo(SOME_TASK_UUID);
     assertThat(taskResponse.getTask().getStatus()).isEqualTo(Ce.TaskStatus.PENDING);
@@ -112,7 +111,7 @@ public class TaskActionTest {
 
     Ce.TaskResponse taskResponse = ws.newRequest()
       .setParam("id", SOME_TASK_UUID)
-      .executeProtobuf(Ce.TaskResponse.class);
+      .executeProtobufV3(Ce.TaskResponse.class);
     Ce.Task task = taskResponse.getTask();
     assertThat(task.getOrganization()).isEqualTo(organizationDto.getKey());
     assertThat(task.getId()).isEqualTo(SOME_TASK_UUID);
@@ -138,7 +137,7 @@ public class TaskActionTest {
 
     Ce.TaskResponse taskResponse = ws.newRequest()
       .setParam("id", SOME_TASK_UUID)
-      .executeProtobuf(Ce.TaskResponse.class);
+      .executeProtobufV3(Ce.TaskResponse.class);
 
     assertThat(taskResponse.getTask())
       .extracting(Ce.Task::getId, Ce.Task::getBranch, Ce.Task::getBranchType, Ce.Task::getComponentKey)
@@ -155,7 +154,7 @@ public class TaskActionTest {
 
     Ce.TaskResponse taskResponse = ws.newRequest()
       .setParam("id", SOME_TASK_UUID)
-      .executeProtobuf(Ce.TaskResponse.class);
+      .executeProtobufV3(Ce.TaskResponse.class);
 
     assertThat(taskResponse.getTask())
       .extracting(Ce.Task::getId, Ce.Task::getBranch, Ce.Task::getBranchType, Ce.Task::hasComponentKey)
@@ -174,7 +173,7 @@ public class TaskActionTest {
     Ce.TaskResponse taskResponse = ws.newRequest()
       .setParam("id", SOME_TASK_UUID)
       .setParam("additionalFields", "stacktrace")
-      .executeProtobuf(Ce.TaskResponse.class);
+      .executeProtobufV3(Ce.TaskResponse.class);
     Ce.Task task = taskResponse.getTask();
     assertThat(task.getId()).isEqualTo(SOME_TASK_UUID);
     assertThat(task.getErrorMessage()).isEqualTo(activityDto.getErrorMessage());
@@ -193,7 +192,7 @@ public class TaskActionTest {
 
     Ce.TaskResponse taskResponse = ws.newRequest()
       .setParam("id", SOME_TASK_UUID)
-      .executeProtobuf(Ce.TaskResponse.class);
+      .executeProtobufV3(Ce.TaskResponse.class);
     Ce.Task task = taskResponse.getTask();
     assertThat(task.getId()).isEqualTo(SOME_TASK_UUID);
     assertThat(task.getErrorMessage()).isEqualTo(activityDto.getErrorMessage());
@@ -211,7 +210,7 @@ public class TaskActionTest {
     Ce.TaskResponse taskResponse = ws.newRequest()
       .setParam("id", SOME_TASK_UUID)
       .setParam("additionalFields", "scannerContext")
-      .executeProtobuf(Ce.TaskResponse.class);
+      .executeProtobufV3(Ce.TaskResponse.class);
     Ce.Task task = taskResponse.getTask();
     assertThat(task.getId()).isEqualTo(SOME_TASK_UUID);
     assertThat(task.getScannerContext()).isEqualTo(scannerContext);
@@ -228,7 +227,7 @@ public class TaskActionTest {
     Ce.TaskResponse taskResponse = ws.newRequest()
       .setParam("id", SOME_TASK_UUID)
       .setParam("additionalFields", "stacktrace")
-      .executeProtobuf(Ce.TaskResponse.class);
+      .executeProtobufV3(Ce.TaskResponse.class);
     Ce.Task task = taskResponse.getTask();
     assertThat(task.getId()).isEqualTo(SOME_TASK_UUID);
     assertThat(task.hasScannerContext()).isFalse();
@@ -244,7 +243,7 @@ public class TaskActionTest {
 
     Ce.TaskResponse taskResponse = ws.newRequest()
       .setParam("id", SOME_TASK_UUID)
-      .executeProtobuf(Ce.TaskResponse.class);
+      .executeProtobufV3(Ce.TaskResponse.class);
     Ce.Task task = taskResponse.getTask();
     assertThat(task.getId()).isEqualTo(SOME_TASK_UUID);
     assertThat(task.getErrorMessage()).isEqualTo(activityDto.getErrorMessage());
@@ -436,7 +435,7 @@ public class TaskActionTest {
   private void call(String taskUuid) {
     Ce.TaskResponse taskResponse = ws.newRequest()
       .setParam("id", taskUuid)
-      .executeProtobuf(Ce.TaskResponse.class);
+      .executeProtobufV3(Ce.TaskResponse.class);
     Ce.Task task = taskResponse.getTask();
     assertThat(task.getId()).isEqualTo(taskUuid);
   }

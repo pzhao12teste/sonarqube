@@ -142,7 +142,7 @@ public class EncryptActionTest {
       request.setParam(PARAM_VALUE, value);
     }
 
-    return request.executeProtobuf(EncryptWsResponse.class);
+    return request.executeProtobufV3(EncryptWsResponse.class);
   }
 
   private void logInAsSystemAdministrator() {

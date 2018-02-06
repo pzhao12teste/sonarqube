@@ -260,7 +260,7 @@ public class AddMemberActionTest {
     TestRequest request = ws.newRequest();
     setNullable(organizationKey, o -> request.setParam(PARAM_ORGANIZATION, o));
     setNullable(login, l -> request.setParam("login", l));
-    return request.executeProtobuf(AddMemberWsResponse.class);
+    return request.executeProtobufV3(AddMemberWsResponse.class);
   }
 
   private void assertMember(String organizationUuid, int userId) {

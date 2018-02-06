@@ -76,7 +76,7 @@ public class ComponentActionTest {
 
     Ce.ComponentResponse response = ws.newRequest()
       .setParam(PARAM_COMPONENT, project.getKey())
-      .executeProtobuf(Ce.ComponentResponse.class);
+      .executeProtobufV3(Ce.ComponentResponse.class);
 
     assertThat(response.getQueueCount()).isEqualTo(0);
     assertThat(response.hasCurrent()).isFalse();
@@ -97,7 +97,7 @@ public class ComponentActionTest {
 
     Ce.ComponentResponse response = ws.newRequest()
       .setParam(PARAM_COMPONENT, project1.getKey())
-      .executeProtobuf(Ce.ComponentResponse.class);
+      .executeProtobufV3(Ce.ComponentResponse.class);
     assertThat(response.getQueueCount()).isEqualTo(2);
     assertThat(response.getQueue(0).getId()).isEqualTo("T4");
     assertThat(response.getQueue(1).getId()).isEqualTo("T5");
@@ -120,7 +120,7 @@ public class ComponentActionTest {
 
     Ce.ComponentResponse response = ws.newRequest()
       .setParam(PARAM_COMPONENT, project.getDbKey())
-      .executeProtobuf(Ce.ComponentResponse.class);
+      .executeProtobufV3(Ce.ComponentResponse.class);
     assertThat(response.hasCurrent()).isTrue();
     assertThat(response.getCurrent().getId()).isEqualTo("T1");
     assertThat(response.getCurrent().getAnalysisId()).isEqualTo(analysis.getUuid());
@@ -135,7 +135,7 @@ public class ComponentActionTest {
 
     Ce.ComponentResponse response = ws.newRequest()
       .setParam(PARAM_COMPONENT_ID, project.uuid())
-      .executeProtobuf(Ce.ComponentResponse.class);
+      .executeProtobufV3(Ce.ComponentResponse.class);
     assertThat(response.hasCurrent()).isTrue();
     assertThat(response.getCurrent().getId()).isEqualTo("T1");
     assertThat(response.getCurrent().getAnalysisId()).isEqualTo(analysis.getUuid());
@@ -153,7 +153,7 @@ public class ComponentActionTest {
 
     Ce.ComponentResponse response = ws.newRequest()
       .setParam(PARAM_COMPONENT, project.getKey())
-      .executeProtobuf(Ce.ComponentResponse.class);
+      .executeProtobufV3(Ce.ComponentResponse.class);
     assertThat(response.getQueueCount()).isEqualTo(0);
     // T3 is the latest task executed on PROJECT_1 ignoring Canceled ones
     assertThat(response.hasCurrent()).isTrue();
@@ -172,7 +172,7 @@ public class ComponentActionTest {
 
     Ce.ComponentResponse response = ws.newRequest()
       .setParam(PARAM_COMPONENT, project.getKey())
-      .executeProtobuf(Ce.ComponentResponse.class);
+      .executeProtobufV3(Ce.ComponentResponse.class);
 
     assertThat(response.getCurrent())
       .extracting(Ce.Task::getId, Ce.Task::getBranch, Ce.Task::getBranchType, Ce.Task::getStatus, Ce.Task::getComponentKey)
@@ -194,7 +194,7 @@ public class ComponentActionTest {
 
     Ce.ComponentResponse response = ws.newRequest()
       .setParam(PARAM_COMPONENT, longLivingBranch.getKey())
-      .executeProtobuf(Ce.ComponentResponse.class);
+      .executeProtobufV3(Ce.ComponentResponse.class);
 
     assertThat(response.getQueueList())
       .extracting(Ce.Task::getId, Ce.Task::getBranch, Ce.Task::getBranchType, Ce.Task::getStatus, Ce.Task::getComponentKey)
@@ -219,7 +219,7 @@ public class ComponentActionTest {
 
     Ce.ComponentResponse response = ws.newRequest()
       .setParam(PARAM_COMPONENT, longLivingBranch.getKey())
-      .executeProtobuf(Ce.ComponentResponse.class);
+      .executeProtobufV3(Ce.ComponentResponse.class);
 
     assertThat(response.getQueueList())
       .extracting(Ce.Task::getId, Ce.Task::getComponentKey, Ce.Task::getBranch, Ce.Task::getBranchType)
@@ -238,7 +238,7 @@ public class ComponentActionTest {
 
     Ce.ComponentResponse response = ws.newRequest()
       .setParam("componentKey", project.getKey())
-      .executeProtobuf(Ce.ComponentResponse.class);
+      .executeProtobufV3(Ce.ComponentResponse.class);
     assertThat(response.hasCurrent()).isTrue();
     assertThat(response.getCurrent().getId()).isEqualTo("T1");
     assertThat(response.getCurrent().getAnalysisId()).isEqualTo(analysis.getUuid());

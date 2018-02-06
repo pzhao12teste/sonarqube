@@ -333,13 +333,13 @@ public class SearchActionTest {
   private SearchWsResponse callByKey(String projectKey) {
     return ws.newRequest()
       .setParam(PARAM_PROJECT_KEY, projectKey)
-      .executeProtobuf(SearchWsResponse.class);
+      .executeProtobufV3(SearchWsResponse.class);
   }
 
   private SearchWsResponse callByUuid(String projectUuid) {
     return ws.newRequest()
       .setParam(PARAM_PROJECT_ID, projectUuid)
-      .executeProtobuf(SearchWsResponse.class);
+      .executeProtobufV3(SearchWsResponse.class);
   }
 
   private void checkItWorks(ComponentDto project) throws IOException {

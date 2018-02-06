@@ -270,7 +270,7 @@ public class CreateActionTest {
   }
 
   private CreateWsResponse executeRequest(TestRequest request) {
-    return request.executeProtobuf(CreateWsResponse.class);
+    return request.executeProtobufV3(CreateWsResponse.class);
   }
 
   private ProfileImporter[] createImporters() {

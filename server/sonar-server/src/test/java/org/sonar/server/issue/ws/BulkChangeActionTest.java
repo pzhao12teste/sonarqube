@@ -547,7 +547,7 @@ public class BulkChangeActionTest {
     if (!bulkChangeRequest.getRemoveTags().isEmpty()) {
       request.setParam("remove_tags", String.join(",", bulkChangeRequest.getRemoveTags()));
     }
-    return request.executeProtobuf(BulkChangeWsResponse.class);
+    return request.executeProtobufV3(BulkChangeWsResponse.class);
   }
 
   private void setUserProjectPermissions(String... permissions) {

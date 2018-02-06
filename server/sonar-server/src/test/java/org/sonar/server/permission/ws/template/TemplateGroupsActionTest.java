@@ -128,7 +128,7 @@ public class TemplateGroupsActionTest extends BasePermissionWsTest<TemplateGroup
 
     WsGroupsResponse response = newRequest()
       .setParam(PARAM_TEMPLATE_ID, template.getUuid())
-      .executeProtobuf(WsGroupsResponse.class);
+      .executeProtobufV3(WsGroupsResponse.class);
 
     assertThat(response.getGroupsList()).extracting("name").containsExactly("Anyone", "group-1-name", "group-2-name");
     assertThat(response.getGroups(0).getPermissionsList()).containsOnly("user", "issueadmin");
@@ -160,7 +160,7 @@ public class TemplateGroupsActionTest extends BasePermissionWsTest<TemplateGroup
     WsGroupsResponse response = newRequest()
       .setParam(PARAM_PERMISSION, USER)
       .setParam(PARAM_TEMPLATE_ID, template.getUuid())
-      .executeProtobuf(WsGroupsResponse.class);
+      .executeProtobufV3(WsGroupsResponse.class);
 
     assertThat(response.getGroupsList()).extracting("name").containsExactly("Anyone", "group-1-name");
     assertThat(response.getGroups(0).getPermissionsList()).containsOnly("user");
@@ -186,7 +186,7 @@ public class TemplateGroupsActionTest extends BasePermissionWsTest<TemplateGroup
 
     WsGroupsResponse response = newRequest()
       .setParam(PARAM_TEMPLATE_NAME, template.getName())
-      .executeProtobuf(WsGroupsResponse.class);
+      .executeProtobufV3(WsGroupsResponse.class);
 
     assertThat(response.getGroupsList()).extracting("name").containsExactly("Anyone", "group-1-name", "group-2-name");
   }
@@ -207,7 +207,7 @@ public class TemplateGroupsActionTest extends BasePermissionWsTest<TemplateGroup
       .setParam(PARAM_TEMPLATE_NAME, template.getName())
       .setParam(PAGE, "2")
       .setParam(PAGE_SIZE, "1")
-      .executeProtobuf(WsGroupsResponse.class);
+      .executeProtobufV3(WsGroupsResponse.class);
 
     assertThat(response.getGroupsList()).extracting("name").containsExactly("group-2-name");
   }
@@ -226,7 +226,7 @@ public class TemplateGroupsActionTest extends BasePermissionWsTest<TemplateGroup
     WsGroupsResponse response = newRequest()
       .setParam(PARAM_TEMPLATE_NAME, template.getName())
       .setParam(TEXT_QUERY, "-nam")
-      .executeProtobuf(WsGroupsResponse.class);
+      .executeProtobufV3(WsGroupsResponse.class);
 
     assertThat(response.getGroupsList()).extracting("name").containsExactly("group-1-name", "group-2-name");
   }
@@ -244,7 +244,7 @@ public class TemplateGroupsActionTest extends BasePermissionWsTest<TemplateGroup
     WsGroupsResponse response = newRequest()
       .setParam(PARAM_TEMPLATE_ID, template.getUuid())
       .setParam(TEXT_QUERY, "-name")
-      .executeProtobuf(WsGroupsResponse.class);
+      .executeProtobufV3(WsGroupsResponse.class);
 
     assertThat(response.getGroupsList()).extracting("name").containsExactly("group-1-name", "group-2-name", "group-3-name");
     assertThat(response.getGroups(0).getPermissionsList()).isEmpty();
@@ -263,7 +263,7 @@ public class TemplateGroupsActionTest extends BasePermissionWsTest<TemplateGroup
     WsGroupsResponse response = newRequest()
       .setParam(PARAM_TEMPLATE_ID, template.getUuid())
       .setParam(TEXT_QUERY, "nyo")
-      .executeProtobuf(WsGroupsResponse.class);
+      .executeProtobufV3(WsGroupsResponse.class);
 
     assertThat(response.getGroupsList()).extracting("name").containsExactly("Anyone");
     assertThat(response.getGroups(0).getPermissionsList()).isEmpty();

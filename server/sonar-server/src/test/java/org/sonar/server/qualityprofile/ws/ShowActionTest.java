@@ -351,6 +351,6 @@ public class ShowActionTest {
 
   private ShowResponse call(TestRequest request) {
     TestRequest wsRequest = request.setMediaType(MediaTypes.PROTOBUF);
-    return wsRequest.executeProtobuf(Qualityprofiles.ShowResponse.class);
+    return wsRequest.executeProtobufV3(Qualityprofiles.ShowResponse.class);
   }
 }

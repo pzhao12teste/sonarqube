@@ -232,7 +232,7 @@ public class SearchActionTest {
   }
 
   private SearchWsResponse call(TestRequest request) {
-    return request.executeProtobuf(SearchWsResponse.class);
+    return request.executeProtobufV3(SearchWsResponse.class);
   }
 
   private void insertDefaultGroup(OrganizationDto org, String name, int numberOfMembers) {

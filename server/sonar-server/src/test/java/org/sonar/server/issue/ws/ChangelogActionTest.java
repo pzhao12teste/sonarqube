@@ -285,7 +285,7 @@ public class ChangelogActionTest {
   private ChangelogWsResponse call(@Nullable String issueKey) {
     TestRequest request = tester.newRequest();
     setNullable(issueKey, e -> request.setParam("issue", e));
-    return request.executeProtobuf(ChangelogWsResponse.class);
+    return request.executeProtobufV3(ChangelogWsResponse.class);
   }
 
   private IssueDto newIssue() {

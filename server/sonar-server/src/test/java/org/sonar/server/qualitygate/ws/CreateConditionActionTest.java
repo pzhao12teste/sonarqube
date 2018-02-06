@@ -181,7 +181,7 @@ public class CreateConditionActionTest {
       .setParam(PARAM_WARNING, "90")
       .setParam(PARAM_PERIOD, "1")
       .setParam(PARAM_ORGANIZATION, organization.getKey())
-      .executeProtobuf(CreateConditionResponse.class);
+      .executeProtobufV3(CreateConditionResponse.class);
 
     QualityGateConditionDto condition = new ArrayList<>(dbClient.gateConditionDao().selectForQualityGate(dbSession, qualityGate.getId())).get(0);
     assertThat(response.getId()).isEqualTo(condition.getId());

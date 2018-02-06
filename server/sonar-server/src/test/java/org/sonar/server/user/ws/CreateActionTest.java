@@ -383,7 +383,7 @@ public class CreateActionTest {
     setNullable(createRequest.getPassword(), e -> request.setParam("password", e));
     setNullable(createRequest.getScmAccounts(), e -> request.setMultiParam("scmAccount", e));
     request.setParam("local", createRequest.isLocal() ? "true" : "false");
-    return request.executeProtobuf(CreateWsResponse.class);
+    return request.executeProtobufV3(CreateWsResponse.class);
   }
 
   private void enableCreatePersonalOrg(boolean flag) {

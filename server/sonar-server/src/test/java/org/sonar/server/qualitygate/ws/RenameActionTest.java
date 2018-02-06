@@ -95,7 +95,7 @@ public class RenameActionTest {
       .setParam("id", qualityGate.getId().toString())
       .setParam("name", "new name")
       .setParam("organization", organization.getKey())
-      .executeProtobuf(QualityGate.class);
+      .executeProtobufV3(QualityGate.class);
 
     assertThat(result.getId()).isEqualTo(qualityGate.getId());
     assertThat(result.getName()).isEqualTo("new name");
@@ -126,7 +126,7 @@ public class RenameActionTest {
     QualityGate result = ws.newRequest()
       .setParam("id", qualityGate.getId().toString())
       .setParam("name", "new name")
-      .executeProtobuf(QualityGate.class);
+      .executeProtobufV3(QualityGate.class);
 
     assertThat(result.getId()).isEqualTo(qualityGate.getId());
     assertThat(result.getName()).isEqualTo("new name");

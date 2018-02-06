@@ -87,7 +87,7 @@ public class WebhookDeliveriesActionTest {
 
     Webhooks.DeliveriesWsResponse response = ws.newRequest()
       .setParam("componentKey", project.getDbKey())
-      .executeProtobuf(Webhooks.DeliveriesWsResponse.class);
+      .executeProtobufV3(Webhooks.DeliveriesWsResponse.class);
 
     assertThat(response.getDeliveriesCount()).isEqualTo(0);
   }
@@ -98,7 +98,7 @@ public class WebhookDeliveriesActionTest {
 
     Webhooks.DeliveriesWsResponse response = ws.newRequest()
       .setParam("ceTaskId", "t1")
-      .executeProtobuf(Webhooks.DeliveriesWsResponse.class);
+      .executeProtobufV3(Webhooks.DeliveriesWsResponse.class);
 
     assertThat(response.getDeliveriesCount()).isEqualTo(0);
   }
@@ -140,7 +140,7 @@ public class WebhookDeliveriesActionTest {
 
     Webhooks.DeliveriesWsResponse response = ws.newRequest()
       .setParam("ceTaskId", "t1")
-      .executeProtobuf(Webhooks.DeliveriesWsResponse.class);
+      .executeProtobufV3(Webhooks.DeliveriesWsResponse.class);
     assertThat(response.getDeliveriesCount()).isEqualTo(2);
     assertThat(response.getDeliveriesList()).extracting(Webhooks.Delivery::getId).containsOnly(dto1.getUuid(), dto2.getUuid());
   }

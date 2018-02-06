@@ -123,7 +123,7 @@ public class SearchUsersActionTest {
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(SELECTED, "all")
-      .executeProtobuf(SearchUsersResponse.class);
+      .executeProtobufV3(SearchUsersResponse.class);
 
     assertThat(response.getUsersList()).extracting(SearchUsersResponse.User::getLogin, SearchUsersResponse.User::getName, SearchUsersResponse.User::getAvatar, SearchUsersResponse.User::getSelected)
       .containsExactlyInAnyOrder(
@@ -147,7 +147,7 @@ public class SearchUsersActionTest {
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(SELECTED, "selected")
-      .executeProtobuf(SearchUsersResponse.class);
+      .executeProtobufV3(SearchUsersResponse.class);
 
     assertThat(response.getUsersList()).extracting(SearchUsersResponse.User::getLogin, SearchUsersResponse.User::getName, SearchUsersResponse.User::getSelected)
       .containsExactlyInAnyOrder(
@@ -170,7 +170,7 @@ public class SearchUsersActionTest {
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(SELECTED, "deselected")
-      .executeProtobuf(SearchUsersResponse.class);
+      .executeProtobufV3(SearchUsersResponse.class);
 
     assertThat(response.getUsersList()).extracting(SearchUsersResponse.User::getLogin, SearchUsersResponse.User::getName, SearchUsersResponse.User::getSelected)
       .containsExactlyInAnyOrder(
@@ -194,7 +194,7 @@ public class SearchUsersActionTest {
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(TEXT_QUERY, user1.getLogin())
       .setParam(SELECTED, "all")
-      .executeProtobuf(SearchUsersResponse.class);
+      .executeProtobufV3(SearchUsersResponse.class);
 
     assertThat(response.getUsersList()).extracting(SearchUsersResponse.User::getLogin)
       .containsExactlyInAnyOrder(user1.getLogin());
@@ -219,7 +219,7 @@ public class SearchUsersActionTest {
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(TEXT_QUERY, "ohn")
       .setParam(SELECTED, "all")
-      .executeProtobuf(SearchUsersResponse.class);
+      .executeProtobufV3(SearchUsersResponse.class);
 
     assertThat(response.getUsersList()).extracting(SearchUsersResponse.User::getLogin)
       .containsExactlyInAnyOrder(user1.getLogin(), user3.getLogin());
@@ -239,7 +239,7 @@ public class SearchUsersActionTest {
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(SELECTED, "all")
-      .executeProtobuf(SearchUsersResponse.class);
+      .executeProtobufV3(SearchUsersResponse.class);
 
     assertThat(response.getUsersList()).extracting(SearchUsersResponse.User::getLogin, SearchUsersResponse.User::hasAvatar)
       .containsExactlyInAnyOrder(tuple(user.getLogin(), false));
@@ -266,7 +266,7 @@ public class SearchUsersActionTest {
       .setParam(SELECTED, "all")
       .setParam(PAGE, "1")
       .setParam(PAGE_SIZE, "1")
-      .executeProtobuf(SearchUsersResponse.class).getUsersList())
+      .executeProtobufV3(SearchUsersResponse.class).getUsersList())
       .extracting(SearchUsersResponse.User::getLogin)
       .containsExactly(user1.getLogin());
 
@@ -277,7 +277,7 @@ public class SearchUsersActionTest {
       .setParam(SELECTED, "all")
       .setParam(PAGE, "3")
       .setParam(PAGE_SIZE, "1")
-      .executeProtobuf(SearchUsersResponse.class).getUsersList())
+      .executeProtobufV3(SearchUsersResponse.class).getUsersList())
       .extracting(SearchUsersResponse.User::getLogin)
       .containsExactly(user3.getLogin());
 
@@ -288,7 +288,7 @@ public class SearchUsersActionTest {
       .setParam(SELECTED, "all")
       .setParam(PAGE, "1")
       .setParam(PAGE_SIZE, "10")
-      .executeProtobuf(SearchUsersResponse.class).getUsersList())
+      .executeProtobufV3(SearchUsersResponse.class).getUsersList())
       .extracting(SearchUsersResponse.User::getLogin)
       .containsExactly(user1.getLogin(), user2.getLogin(), user3.getLogin());
   }
@@ -306,7 +306,7 @@ public class SearchUsersActionTest {
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(SELECTED, "all")
-      .executeProtobuf(SearchUsersResponse.class);
+      .executeProtobufV3(SearchUsersResponse.class);
 
     assertThat(response.getUsersList()).extracting(SearchUsersResponse.User::getLogin).containsExactlyInAnyOrder(user1.getLogin());
   }
@@ -324,7 +324,7 @@ public class SearchUsersActionTest {
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(SELECTED, "all")
-      .executeProtobuf(SearchUsersResponse.class);
+      .executeProtobufV3(SearchUsersResponse.class);
 
     assertThat(response.getUsersList()).extracting(SearchUsersResponse.User::getLogin).containsExactlyInAnyOrder(user.getLogin());
   }
@@ -344,7 +344,7 @@ public class SearchUsersActionTest {
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, XOO)
       .setParam(SELECTED, "all")
-      .executeProtobuf(SearchUsersResponse.class);
+      .executeProtobufV3(SearchUsersResponse.class);
 
     assertThat(response.getUsersList()).extracting(SearchUsersResponse.User::getLogin).containsExactlyInAnyOrder(user.getLogin());
   }
@@ -401,7 +401,7 @@ public class SearchUsersActionTest {
       .setParam(PARAM_ORGANIZATION, organization.getKey())
       .setParam(PARAM_QUALITY_PROFILE, profile.getName())
       .setParam(PARAM_LANGUAGE, FOO)
-      .executeProtobuf(SearchUsersResponse.class);
+      .executeProtobufV3(SearchUsersResponse.class);
   }
 
   @Test

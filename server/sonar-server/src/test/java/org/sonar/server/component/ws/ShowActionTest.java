@@ -294,7 +294,7 @@ public class ShowActionTest {
     ShowWsResponse response = ws.newRequest()
       .setParam(PARAM_COMPONENT, file.getKey())
       .setParam(PARAM_BRANCH, branchKey)
-      .executeProtobuf(ShowWsResponse.class);
+      .executeProtobufV3(ShowWsResponse.class);
 
     assertThat(response.getComponent())
       .extracting(Component::getKey, Component::getBranch, Component::getVersion)
@@ -378,7 +378,7 @@ public class ShowActionTest {
 
     ws.newRequest()
       .setParam(PARAM_COMPONENT, branch.getDbKey())
-      .executeProtobuf(ShowWsResponse.class);
+      .executeProtobufV3(ShowWsResponse.class);
   }
 
   @Test
@@ -392,7 +392,7 @@ public class ShowActionTest {
 
     ws.newRequest()
       .setParam(PARAM_COMPONENT_ID, branch.uuid())
-      .executeProtobuf(ShowWsResponse.class);
+      .executeProtobufV3(ShowWsResponse.class);
   }
 
   private ShowWsResponse newRequest(@Nullable String uuid, @Nullable String key) {
@@ -403,7 +403,7 @@ public class ShowActionTest {
     if (key != null) {
       request.setParam(PARAM_COMPONENT, key);
     }
-    return request.executeProtobuf(ShowWsResponse.class);
+    return request.executeProtobufV3(ShowWsResponse.class);
   }
 
   private void insertJsonExampleComponentsAndSnapshots() {

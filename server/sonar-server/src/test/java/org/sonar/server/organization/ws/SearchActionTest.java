@@ -295,7 +295,7 @@ public class SearchActionTest {
   }
 
   private SearchWsResponse call(TestRequest request) {
-    return request.executeProtobuf(SearchWsResponse.class);
+    return request.executeProtobufV3(SearchWsResponse.class);
   }
 
   private SearchWsResponse call(@Nullable Integer page, @Nullable Integer pageSize, String... keys) {

@@ -19,13 +19,7 @@
  */
 package org.sonar.server.qualitygate.ws;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.sonar.db.permission.OrganizationPermission.ADMINISTER_QUALITY_GATES;
-import static org.sonar.server.qualitygate.ws.QualityGatesWsParameters.PARAM_NAME;
-import static org.sonar.server.qualitygate.ws.QualityGatesWsParameters.PARAM_ORGANIZATION;
-
 import java.util.Optional;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -46,6 +40,11 @@ import org.sonar.server.qualitygate.QualityGateUpdater;
 import org.sonar.server.tester.UserSessionRule;
 import org.sonar.server.ws.WsActionTester;
 import org.sonarqube.ws.Qualitygates.CreateResponse;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.sonar.db.permission.OrganizationPermission.ADMINISTER_QUALITY_GATES;
+import static org.sonar.server.qualitygate.ws.QualityGatesWsParameters.PARAM_NAME;
+import static org.sonar.server.qualitygate.ws.QualityGatesWsParameters.PARAM_ORGANIZATION;
 
 public class CreateActionTest {
 
@@ -108,7 +107,7 @@ public class CreateActionTest {
     CreateResponse response = ws.newRequest()
       .setParam(PARAM_NAME, qualityGate.getName())
       .setParam(PARAM_ORGANIZATION, anotherOrganization.getKey())
-      .executeProtobuf(CreateResponse.class);
+      .executeProtobufV3(CreateResponse.class);
 
     assertThat(response.getName()).isEqualTo(qualityGate.getName());
     assertThat(response.getId()).isNotEqualTo(qualityGate.getId());
@@ -215,11 +214,11 @@ public class CreateActionTest {
       return ws.newRequest()
         .setParam("name", qualitGateName)
         .setParam("organization", organization.get().getKey())
-        .executeProtobuf(CreateResponse.class);
+        .executeProtobufV3(CreateResponse.class);
     } else {
       return ws.newRequest()
         .setParam("name", qualitGateName)
-        .executeProtobuf(CreateResponse.class);
+        .executeProtobufV3(CreateResponse.class);
     }
   }
 

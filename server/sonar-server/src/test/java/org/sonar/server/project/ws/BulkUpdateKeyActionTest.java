@@ -326,6 +326,6 @@ public class BulkUpdateKeyActionTest {
       request.setParam(PARAM_DRY_RUN, String.valueOf(dryRun));
     }
 
-    return request.executeProtobuf(BulkUpdateKeyWsResponse.class);
+    return request.executeProtobufV3(BulkUpdateKeyWsResponse.class);
   }
 }

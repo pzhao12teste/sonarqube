@@ -142,7 +142,7 @@ public class SearchActionTest {
 
   private List<Roots.RootContent> executeRequest() {
     return wsTester.newRequest()
-      .executeProtobuf(Roots.SearchResponse.class)
+      .executeProtobufV3(Roots.SearchResponse.class)
       .getRootsList();
   }
 

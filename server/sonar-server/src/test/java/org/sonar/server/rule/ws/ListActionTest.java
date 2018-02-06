@@ -53,7 +53,7 @@ public class ListActionTest {
     dbTester.getSession().commit();
 
     Rules.ListResponse listResponse = tester.newRequest()
-      .executeProtobuf(Rules.ListResponse.class);
+      .executeProtobufV3(Rules.ListResponse.class);
 
     assertThat(listResponse.getRulesCount()).isEqualTo(2);
 

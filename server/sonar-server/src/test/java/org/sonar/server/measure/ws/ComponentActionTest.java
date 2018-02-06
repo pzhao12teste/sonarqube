@@ -133,7 +133,7 @@ public class ComponentActionTest {
       .setParam(PARAM_COMPONENT, file.getKey())
       .setParam(PARAM_BRANCH, file.getBranch())
       .setParam(PARAM_METRIC_KEYS, complexity.getKey())
-      .executeProtobuf(ComponentWsResponse.class);
+      .executeProtobufV3(ComponentWsResponse.class);
 
     assertThat(response.getComponent()).extracting(Component::getKey, Component::getBranch)
       .containsExactlyInAnyOrder(file.getKey(), file.getBranch());
@@ -179,7 +179,7 @@ public class ComponentActionTest {
     ComponentWsResponse response = ws.newRequest()
       .setParam("componentId", project.uuid())
       .setParam(PARAM_METRIC_KEYS, metric.getKey())
-      .executeProtobuf(ComponentWsResponse.class);
+      .executeProtobufV3(ComponentWsResponse.class);
 
     assertThat(response.getComponent().getKey()).isEqualTo(project.getDbKey());
   }
@@ -194,7 +194,7 @@ public class ComponentActionTest {
     ComponentWsResponse response = ws.newRequest()
       .setParam("componentKey", project.getKey())
       .setParam(PARAM_METRIC_KEYS, metric.getKey())
-      .executeProtobuf(ComponentWsResponse.class);
+      .executeProtobufV3(ComponentWsResponse.class);
 
     assertThat(response.getComponent().getKey()).isEqualTo(project.getDbKey());
   }
@@ -212,7 +212,7 @@ public class ComponentActionTest {
       .setParam(PARAM_COMPONENT, project.getKey())
       .setParam(PARAM_METRIC_KEYS, metricWithoutDomain.getKey())
       .setParam(PARAM_ADDITIONAL_FIELDS, "metrics")
-      .executeProtobuf(ComponentWsResponse.class);
+      .executeProtobufV3(ComponentWsResponse.class);
 
     assertThat(response.getComponent().getMeasuresList()).extracting(Measures.Measure::getMetric).containsExactly(metricWithoutDomain.getKey());
     Common.Metric responseMetric = response.getMetrics().getMetrics(0);
@@ -235,7 +235,7 @@ public class ComponentActionTest {
       .setParam(PARAM_COMPONENT, file.getKey())
       .setParam(PARAM_METRIC_KEYS, metric.getKey())
       .setParam(PARAM_ADDITIONAL_FIELDS, "metrics")
-      .executeProtobuf(ComponentWsResponse.class);
+      .executeProtobufV3(ComponentWsResponse.class);
 
     assertThat(response.getComponent().getMeasuresList())
       .extracting(Measures.Measure::getMetric, Measures.Measure::getValue)
@@ -256,7 +256,7 @@ public class ComponentActionTest {
     ws.newRequest()
       .setParam(PARAM_COMPONENT, project.getKey())
       .setParam(PARAM_METRIC_KEYS, metric.getKey())
-      .setParam(PARAM_DEVELOPER_ID, "unknown-developer-id").executeProtobuf(ComponentWsResponse.class);
+      .setParam(PARAM_DEVELOPER_ID, "unknown-developer-id").executeProtobufV3(ComponentWsResponse.class);
   }
 
   @Test
@@ -465,6 +465,6 @@ public class ComponentActionTest {
       .setParam(PARAM_COMPONENT, componentKey)
       .setParam(PARAM_METRIC_KEYS, metricKeys)
       .setParam(PARAM_ADDITIONAL_FIELDS, "metrics,periods")
-      .executeProtobuf(ComponentWsResponse.class);
+      .executeProtobufV3(ComponentWsResponse.class);
   }
 }

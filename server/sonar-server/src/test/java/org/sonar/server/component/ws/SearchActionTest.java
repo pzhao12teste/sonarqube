@@ -293,7 +293,7 @@ public class SearchActionTest {
     setNullable(wsRequest.getQuery(), p -> request.setParam(TEXT_QUERY, p));
     setNullable(wsRequest.getPage(), page -> request.setParam(PAGE, String.valueOf(page)));
     setNullable(wsRequest.getPageSize(), pageSize -> request.setParam(PAGE_SIZE, String.valueOf(pageSize)));
-    return request.executeProtobuf(SearchWsResponse.class);
+    return request.executeProtobufV3(SearchWsResponse.class);
   }
 
   private void index() {

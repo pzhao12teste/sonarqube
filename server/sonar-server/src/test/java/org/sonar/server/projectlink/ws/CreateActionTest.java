@@ -295,7 +295,7 @@ public class CreateActionTest {
       .setParam(PARAM_PROJECT_KEY, project.getDbKey())
       .setParam(PARAM_NAME, name)
       .setParam(PARAM_URL, url)
-      .executeProtobuf(ProjectLinks.CreateWsResponse.class);
+      .executeProtobufV3(ProjectLinks.CreateWsResponse.class);
 
     long newId = Long.valueOf(response.getLink().getId());
 

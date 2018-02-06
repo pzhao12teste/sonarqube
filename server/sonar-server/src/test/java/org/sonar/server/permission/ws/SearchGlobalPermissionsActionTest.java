@@ -102,7 +102,7 @@ public class SearchGlobalPermissionsActionTest extends BasePermissionWsTest<Sear
     db.organizations().addMember(org, user);
 
     Permissions.WsSearchGlobalPermissionsResponse result = newRequest()
-      .executeProtobuf(Permissions.WsSearchGlobalPermissionsResponse.class);
+      .executeProtobufV3(Permissions.WsSearchGlobalPermissionsResponse.class);
 
     assertThat(result.getPermissionsCount()).isEqualTo(GlobalPermissions.ALL.size());
     for (Permissions.Permission permission : result.getPermissionsList()) {
@@ -119,7 +119,7 @@ public class SearchGlobalPermissionsActionTest extends BasePermissionWsTest<Sear
     loginAsAdmin(db.getDefaultOrganization());
 
     Permissions.WsSearchGlobalPermissionsResponse result = newRequest()
-      .executeProtobuf(Permissions.WsSearchGlobalPermissionsResponse.class);
+      .executeProtobufV3(Permissions.WsSearchGlobalPermissionsResponse.class);
 
     assertThat(result).isNotNull();
   }

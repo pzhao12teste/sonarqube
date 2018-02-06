@@ -531,6 +531,6 @@ public class SearchActionTest {
   private SearchWsResponse call(TestRequest request) {
     TestRequest wsRequest = request.setMediaType(MediaTypes.PROTOBUF);
 
-    return wsRequest.executeProtobuf(SearchWsResponse.class);
+    return wsRequest.executeProtobufV3(SearchWsResponse.class);
   }
 }

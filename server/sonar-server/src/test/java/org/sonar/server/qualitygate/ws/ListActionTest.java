@@ -102,7 +102,7 @@ public class ListActionTest {
 
     ListWsResponse response = ws.newRequest()
       .setParam("organization", organization.getKey())
-      .executeProtobuf(ListWsResponse.class);
+      .executeProtobufV3(ListWsResponse.class);
 
     assertThat(response.getQualitygatesList())
       .extracting(QualityGate::getId, QualityGate::getName, QualityGate::getIsDefault)
@@ -120,7 +120,7 @@ public class ListActionTest {
     QGateWithOrgDto otherQualityGate = db.qualityGates().insertQualityGate(otherOrganization);
     db.qualityGates().setDefaultQualityGate(otherOrganization, otherQualityGate);
 
-    ListWsResponse response = ws.newRequest().executeProtobuf(ListWsResponse.class);
+    ListWsResponse response = ws.newRequest().executeProtobufV3(ListWsResponse.class);
 
     assertThat(response.getQualitygatesList())
       .extracting(QualityGate::getId)
@@ -136,7 +136,7 @@ public class ListActionTest {
 
     ListWsResponse response = ws.newRequest()
       .setParam("organization", organization.getKey())
-      .executeProtobuf(ListWsResponse.class);
+      .executeProtobufV3(ListWsResponse.class);
 
     assertThat(response.getQualitygatesList())
       .extracting(QualityGate::getId, QualityGate::getIsBuiltIn)
@@ -153,7 +153,7 @@ public class ListActionTest {
 
     ListWsResponse response = ws.newRequest()
       .setParam("organization", organization.getKey())
-      .executeProtobuf(ListWsResponse.class);
+      .executeProtobufV3(ListWsResponse.class);
 
     assertThat(response.getDefault()).isEqualTo(defaultQualityGate.getId());
   }
@@ -167,7 +167,7 @@ public class ListActionTest {
 
     ListWsResponse response = ws.newRequest()
       .setParam("organization", organization.getKey())
-      .executeProtobuf(ListWsResponse.class);
+      .executeProtobufV3(ListWsResponse.class);
 
   }
 
@@ -182,7 +182,7 @@ public class ListActionTest {
 
     ListWsResponse response = ws.newRequest()
       .setParam("organization", organization.getKey())
-      .executeProtobuf(ListWsResponse.class);
+      .executeProtobufV3(ListWsResponse.class);
 
     assertThat(response.getActions())
       .extracting(ListWsResponse.RootActions::getCreate)
@@ -207,7 +207,7 @@ public class ListActionTest {
 
     ListWsResponse response = ws.newRequest()
       .setParam("organization", organization.getKey())
-      .executeProtobuf(ListWsResponse.class);
+      .executeProtobufV3(ListWsResponse.class);
 
     assertThat(response.getActions())
       .extracting(ListWsResponse.RootActions::getCreate)

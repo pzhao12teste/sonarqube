@@ -19,7 +19,6 @@
  */
 package org.sonar.server.ce.ws;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -51,10 +50,10 @@ import org.sonar.server.ws.TestResponse;
 import org.sonar.server.ws.WsActionTester;
 import org.sonar.test.JsonAssert;
 import org.sonarqube.ws.Ce;
-import org.sonarqube.ws.Common;
-import org.sonarqube.ws.MediaTypes;
 import org.sonarqube.ws.Ce.ActivityResponse;
 import org.sonarqube.ws.Ce.Task;
+import org.sonarqube.ws.Common;
+import org.sonarqube.ws.MediaTypes;
 
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -351,7 +350,7 @@ public class ActivityActionTest {
     insertCharacteristic(activity, BRANCH_KEY, longLivingBranch.getBranch());
     insertCharacteristic(activity, BRANCH_TYPE_KEY, LONG.name());
 
-    ActivityResponse response = ws.newRequest().executeProtobuf(ActivityResponse.class);
+    ActivityResponse response = ws.newRequest().executeProtobufV3(ActivityResponse.class);
 
     assertThat(response.getTasksList())
       .extracting(Task::getId, Ce.Task::getBranch, Ce.Task::getBranchType, Ce.Task::getStatus, Ce.Task::getComponentKey)
@@ -372,7 +371,7 @@ public class ActivityActionTest {
 
     ActivityResponse response = ws.newRequest()
       .setParam("status", "FAILED,IN_PROGRESS,PENDING")
-      .executeProtobuf(ActivityResponse.class);
+      .executeProtobufV3(ActivityResponse.class);
 
     assertThat(response.getTasksList())
       .extracting(Task::getId, Ce.Task::getBranch, Ce.Task::getBranchType, Ce.Task::getStatus)
@@ -515,6 +514,6 @@ public class ActivityActionTest {
   }
 
   private static ActivityResponse call(TestRequest request) {
-    return request.executeProtobuf(ActivityResponse.class);
+    return request.executeProtobufV3(ActivityResponse.class);
   }
 }

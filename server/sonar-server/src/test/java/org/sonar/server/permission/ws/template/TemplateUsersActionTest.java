@@ -89,7 +89,7 @@ public class TemplateUsersActionTest extends BasePermissionWsTest<TemplateUsersA
 
     Permissions.UsersWsResponse response = newRequest(null, null)
       .setParam(PARAM_TEMPLATE_NAME, template.getName())
-      .executeProtobuf(Permissions.UsersWsResponse.class);
+      .executeProtobufV3(Permissions.UsersWsResponse.class);
 
     assertThat(response.getUsersList()).extracting("login").containsExactly("login-1", "login-2", "login-3");
     assertThat(response.getUsers(0).getPermissionsList()).containsOnly("issueadmin", "user");
@@ -117,7 +117,7 @@ public class TemplateUsersActionTest extends BasePermissionWsTest<TemplateUsersA
     Permissions.UsersWsResponse response = newRequest(null, null)
       .setParam(PARAM_TEMPLATE_NAME, template.getName())
       .setParam(WebService.Param.TEXT_QUERY, "ame-1")
-      .executeProtobuf(Permissions.UsersWsResponse.class);
+      .executeProtobufV3(Permissions.UsersWsResponse.class);
 
     assertThat(response.getUsersList()).extracting("login").containsOnly("login-1");
   }
@@ -139,7 +139,7 @@ public class TemplateUsersActionTest extends BasePermissionWsTest<TemplateUsersA
 
     loginAsAdmin(db.getDefaultOrganization());
     Permissions.UsersWsResponse response = newRequest(USER, template.getUuid())
-      .executeProtobuf(Permissions.UsersWsResponse.class);
+      .executeProtobufV3(Permissions.UsersWsResponse.class);
     assertThat(response.getUsersList()).extracting("login").containsExactly("login-1", "login-2");
     assertThat(response.getUsers(0).getPermissionsList()).containsOnly("issueadmin", "user");
     assertThat(response.getUsers(1).getPermissionsList()).containsOnly("user");
@@ -166,7 +166,7 @@ public class TemplateUsersActionTest extends BasePermissionWsTest<TemplateUsersA
       .setParam(WebService.Param.SELECTED, "all")
       .setParam(WebService.Param.PAGE, "2")
       .setParam(WebService.Param.PAGE_SIZE, "1")
-      .executeProtobuf(Permissions.UsersWsResponse.class);
+      .executeProtobufV3(Permissions.UsersWsResponse.class);
 
     assertThat(response.getUsersList()).extracting("login").containsOnly("login-2");
   }
@@ -185,7 +185,7 @@ public class TemplateUsersActionTest extends BasePermissionWsTest<TemplateUsersA
     loginAsAdmin(db.getDefaultOrganization());
     Permissions.UsersWsResponse response = newRequest(null, null)
       .setParam(PARAM_TEMPLATE_NAME, template.getName())
-      .executeProtobuf(Permissions.UsersWsResponse.class);
+      .executeProtobufV3(Permissions.UsersWsResponse.class);
 
     assertThat(response.getUsersList()).extracting("login").containsExactly("login-1", "login-2", "login-3");
   }
@@ -200,7 +200,7 @@ public class TemplateUsersActionTest extends BasePermissionWsTest<TemplateUsersA
     loginAsAdmin(db.getDefaultOrganization());
     Permissions.UsersWsResponse response = newRequest(null, null)
       .setParam(PARAM_TEMPLATE_NAME, template.getName())
-      .executeProtobuf(Permissions.UsersWsResponse.class);
+      .executeProtobufV3(Permissions.UsersWsResponse.class);
 
     assertThat(response.getUsersList()).isEmpty();
   }

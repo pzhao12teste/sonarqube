@@ -160,7 +160,7 @@ public class TreeActionTest {
       .setParam(Param.PAGE_SIZE, "3")
       .setParam(Param.TEXT_QUERY, "file-name")
       .setParam(Param.ASCENDING, "false")
-      .setParam(Param.SORT, "name").executeProtobuf(TreeWsResponse.class);
+      .setParam(Param.SORT, "name").executeProtobufV3(TreeWsResponse.class);
 
     assertThat(response.getComponentsCount()).isEqualTo(3);
     assertThat(response.getPaging().getTotal()).isEqualTo(8);
@@ -190,7 +190,7 @@ public class TreeActionTest {
       .setParam(Param.PAGE_SIZE, "3")
       .setParam(Param.TEXT_QUERY, "file-name")
       .setParam(Param.ASCENDING, "true")
-      .setParam(Param.SORT, "path").executeProtobuf(TreeWsResponse.class);
+      .setParam(Param.SORT, "path").executeProtobufV3(TreeWsResponse.class);
 
     assertThat(response.getComponentsCount()).isEqualTo(3);
     assertThat(response.getPaging().getTotal()).isEqualTo(9);
@@ -210,7 +210,7 @@ public class TreeActionTest {
     TreeWsResponse response = ws.newRequest()
       .setParam(PARAM_STRATEGY, "all")
       .setParam(PARAM_QUALIFIERS, FILE)
-      .setParam(PARAM_COMPONENT_ID, "project-uuid").executeProtobuf(TreeWsResponse.class);
+      .setParam(PARAM_COMPONENT_ID, "project-uuid").executeProtobufV3(TreeWsResponse.class);
 
     assertThat(response.getComponentsList()).extracting("id").containsExactly("file-uuid-1", "file-uuid-2");
   }
@@ -232,7 +232,7 @@ public class TreeActionTest {
     TreeWsResponse response = ws.newRequest()
       .setParam(PARAM_STRATEGY, "leaves")
       .setParam(PARAM_COMPONENT_ID, "project-uuid")
-      .setParam(PARAM_QUALIFIERS, FILE).executeProtobuf(TreeWsResponse.class);
+      .setParam(PARAM_QUALIFIERS, FILE).executeProtobufV3(TreeWsResponse.class);
 
     assertThat(response.getComponentsCount()).isEqualTo(3);
     assertThat(response.getPaging().getTotal()).isEqualTo(3);
@@ -254,7 +254,7 @@ public class TreeActionTest {
     TreeWsResponse response = ws.newRequest()
       .setParam(PARAM_STRATEGY, "all")
       .setParam(Param.SORT, "qualifier, name")
-      .setParam(PARAM_COMPONENT_ID, "project-uuid").executeProtobuf(TreeWsResponse.class);
+      .setParam(PARAM_COMPONENT_ID, "project-uuid").executeProtobufV3(TreeWsResponse.class);
 
     assertThat(response.getComponentsList()).extracting("id").containsExactly("module-uuid-1", "path/directory/", "file-uuid-1", "file-uuid-2");
   }
@@ -275,7 +275,7 @@ public class TreeActionTest {
     TreeWsResponse response = ws.newRequest()
       .setParam(PARAM_STRATEGY, "children")
       .setParam(PARAM_COMPONENT_ID, "view-uuid")
-      .setParam(Param.TEXT_QUERY, "name").executeProtobuf(TreeWsResponse.class);
+      .setParam(Param.TEXT_QUERY, "name").executeProtobufV3(TreeWsResponse.class);
 
     assertThat(response.getComponentsList()).extracting("id").containsExactly("project-uuid-1-copy", "sub-view-uuid");
     assertThat(response.getComponentsList()).extracting("refId").containsExactly("project-uuid-1", "");
@@ -288,7 +288,7 @@ public class TreeActionTest {
     logInWithBrowsePermission(project);
 
     TreeWsResponse response = ws.newRequest()
-      .setParam(PARAM_COMPONENT_ID, "project-uuid").executeProtobuf(TreeWsResponse.class);
+      .setParam(PARAM_COMPONENT_ID, "project-uuid").executeProtobufV3(TreeWsResponse.class);
 
     assertThat(response.getBaseComponent().getId()).isEqualTo("project-uuid");
     assertThat(response.getComponentsList()).isEmpty();
@@ -307,7 +307,7 @@ public class TreeActionTest {
     userSession.logIn()
       .registerComponents(project, view);
 
-    TreeWsResponse response = ws.newRequest().setParam(PARAM_COMPONENT_ID, view.uuid()).executeProtobuf(TreeWsResponse.class);
+    TreeWsResponse response = ws.newRequest().setParam(PARAM_COMPONENT_ID, view.uuid()).executeProtobufV3(TreeWsResponse.class);
 
     assertThat(response.getBaseComponent().getId()).isEqualTo(view.uuid());
     assertThat(response.getComponentsCount()).isEqualTo(1);
@@ -328,7 +328,7 @@ public class TreeActionTest {
     TreeWsResponse response = ws.newRequest()
       .setParam(PARAM_COMPONENT, module.getKey())
       .setParam(PARAM_BRANCH, branchKey)
-      .executeProtobuf(TreeWsResponse.class);
+      .executeProtobufV3(TreeWsResponse.class);
 
     assertThat(response.getBaseComponent()).extracting(Components.Component::getKey, Components.Component::getBranch)
       .containsExactlyInAnyOrder(module.getKey(), branchKey);
@@ -349,7 +349,7 @@ public class TreeActionTest {
 
     ws.newRequest()
       .setParam(PARAM_COMPONENT, branch.getDbKey())
-      .executeProtobuf(Components.ShowWsResponse.class);
+      .executeProtobufV3(Components.ShowWsResponse.class);
   }
 
   @Test
@@ -363,7 +363,7 @@ public class TreeActionTest {
 
     ws.newRequest()
       .setParam(PARAM_COMPONENT_ID, branch.uuid())
-      .executeProtobuf(Components.ShowWsResponse.class);
+      .executeProtobufV3(Components.ShowWsResponse.class);
   }
 
   @Test

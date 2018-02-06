@@ -19,7 +19,6 @@
  */
 package org.sonar.server.rule.ws;
 
-import java.io.IOException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -162,7 +161,7 @@ public class UpdateActionTest {
     Rules.UpdateResponse result = ws.newRequest().setMethod("POST")
       .setParam(PARAM_KEY, rule.getKey().toString())
       .setParam(PARAM_TAGS, "tag2,tag3")
-      .executeProtobuf(Rules.UpdateResponse.class);
+      .executeProtobufV3(Rules.UpdateResponse.class);
 
     Rules.Rule updatedRule = result.getRule();
     assertThat(updatedRule).isNotNull();
@@ -184,7 +183,7 @@ public class UpdateActionTest {
       .setParam(PARAM_KEY, rule.getKey().toString())
       .setParam(PARAM_TAGS, "tag2,tag3")
       .setParam(PARAM_ORGANIZATION, organization.getKey())
-      .executeProtobuf(Rules.UpdateResponse.class);
+      .executeProtobufV3(Rules.UpdateResponse.class);
 
     Rules.Rule updatedRule = result.getRule();
     assertThat(updatedRule).isNotNull();
@@ -220,7 +219,7 @@ public class UpdateActionTest {
       .setParam(PARAM_REMEDIATION_FN_TYPE, newOffset)
       .setParam(PARAM_REMEDIATION_FN_GAP_MULTIPLIER, newMultiplier)
       .setParam(PARAM_REMEDIATION_FN_BASE_EFFORT, newEffort)
-      .executeProtobuf(Rules.UpdateResponse.class);
+      .executeProtobufV3(Rules.UpdateResponse.class);
 
     Rules.Rule updatedRule = result.getRule();
     assertThat(updatedRule).isNotNull();
@@ -262,7 +261,7 @@ public class UpdateActionTest {
       .setParam(DEPRECATED_PARAM_REMEDIATION_FN_TYPE, newType)
       .setParam(DEPRECATED_PARAM_REMEDIATION_FN_COEFF, newCoeff)
       .setParam(DEPRECATED_PARAM_REMEDIATION_FN_OFFSET, newOffset)
-      .executeProtobuf(Rules.UpdateResponse.class);
+      .executeProtobufV3(Rules.UpdateResponse.class);
 
     Rules.Rule updatedRule = result.getRule();
     assertThat(updatedRule).isNotNull();

@@ -328,7 +328,7 @@ public class UpdateActionTest {
     setParam(request, "description", description);
     setParam(request, "url", url);
     setParam(request, "avatar", avatar);
-    return request.executeProtobuf(Organizations.UpdateWsResponse.class);
+    return request.executeProtobufV3(Organizations.UpdateWsResponse.class);
   }
 
   private void verifyResponseAndDb(Organizations.UpdateWsResponse response, OrganizationDto dto, String name, long updateAt) {

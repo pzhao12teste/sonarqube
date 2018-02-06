@@ -272,11 +272,11 @@ public class ListActionTest {
   }
 
   private ListResponse call() {
-    return ws.newRequest().executeProtobuf(ListResponse.class);
+    return ws.newRequest().executeProtobufV3(ListResponse.class);
   }
 
   private ListResponse call(String login) {
-    return ws.newRequest().setParam("login", login).executeProtobuf(ListResponse.class);
+    return ws.newRequest().setParam("login", login).executeProtobufV3(ListResponse.class);
   }
 
   private ComponentDto addComponent(ComponentDto component) {

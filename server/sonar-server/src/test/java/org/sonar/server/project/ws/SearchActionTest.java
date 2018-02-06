@@ -20,8 +20,6 @@
 package org.sonar.server.project.ws;
 
 import com.google.common.base.Joiner;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -422,7 +420,7 @@ public class SearchActionTest {
     setNullable(wsRequest.getProjects(), l -> request.setParam(PARAM_PROJECTS, String.join(",", l)));
     setNullable(wsRequest.getProjectIds(), l -> request.setParam(PARAM_PROJECT_IDS, String.join(",", l)));
     request.setParam(PARAM_ON_PROVISIONED_ONLY, String.valueOf(wsRequest.isOnProvisionedOnly()));
-    return request.executeProtobuf(SearchWsResponse.class);
+    return request.executeProtobufV3(SearchWsResponse.class);
   }
 
 }

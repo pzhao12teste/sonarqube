@@ -19,7 +19,6 @@
  */
 package org.sonar.server.user.ws;
 
-import java.io.IOException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -354,7 +353,7 @@ public class GroupsActionTest {
   }
 
   private GroupsWsResponse call(TestRequest request) {
-    return request.executeProtobuf(GroupsWsResponse.class);
+    return request.executeProtobufV3(GroupsWsResponse.class);
   }
 
 }

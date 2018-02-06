@@ -136,6 +136,6 @@ public class SearchActionTest {
     setNullable(textQuery, s -> request.setParam("q", s));
     setNullable(pageSize, ps -> request.setParam("ps", ps.toString()));
 
-    return request.executeProtobuf(SearchResponse.class);
+    return request.executeProtobufV3(SearchResponse.class);
   }
 }

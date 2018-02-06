@@ -151,7 +151,7 @@ public class SearchMyProjectsActionTest {
     SearchMyProjectsWsResponse result = ws.newRequest()
       .setParam(Param.PAGE, "2")
       .setParam(Param.PAGE_SIZE, "3")
-      .executeProtobuf(SearchMyProjectsWsResponse.class);
+      .executeProtobufV3(SearchMyProjectsWsResponse.class);
 
     assertThat(result.getProjectsCount()).isEqualTo(3);
     assertThat(result.getProjectsList()).extracting(Project::getName).containsExactly("project-3", "project-4", "project-5");
@@ -275,7 +275,7 @@ public class SearchMyProjectsActionTest {
 
   private SearchMyProjectsWsResponse call_ws() {
     return ws.newRequest()
-      .executeProtobuf(SearchMyProjectsWsResponse.class);
+      .executeProtobufV3(SearchMyProjectsWsResponse.class);
   }
 
 }

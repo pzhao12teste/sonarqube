@@ -246,7 +246,7 @@ public class UpdateEventActionTest {
     setNullable(eventUuid, e -> request.setParam(PARAM_EVENT, e));
     setNullable(name, n -> request.setParam(PARAM_NAME, n));
 
-    return request.executeProtobuf(UpdateEventResponse.class);
+    return request.executeProtobufV3(UpdateEventResponse.class);
   }
 
   private void logInAsProjectAdministrator(ComponentDto project) {

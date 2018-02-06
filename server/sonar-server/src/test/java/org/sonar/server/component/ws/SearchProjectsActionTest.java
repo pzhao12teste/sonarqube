@@ -216,7 +216,7 @@ public class SearchProjectsActionTest {
     addFavourite(project1);
 
     String jsonResult = ws.newRequest().setParam(Param.FACETS, COVERAGE).execute().getInput();
-    SearchProjectsWsResponse protobufResult = ws.newRequest().setParam(Param.FACETS, COVERAGE).executeProtobuf(SearchProjectsWsResponse.class);
+    SearchProjectsWsResponse protobufResult = ws.newRequest().setParam(Param.FACETS, COVERAGE).executeProtobufV3(SearchProjectsWsResponse.class);
 
     assertJson(jsonResult).withStrictArrayOrder().ignoreFields("id").isSimilarTo(ws.getDef().responseExampleAsString());
     assertJson(ws.getDef().responseExampleAsString()).ignoreFields("id").withStrictArrayOrder().isSimilarTo(jsonResult);
@@ -1122,7 +1122,7 @@ public class SearchProjectsActionTest {
     httpRequest.setParam(PAGE_SIZE, String.valueOf(wsRequest.getPageSize()));
     httpRequest.setParam(FACETS, Joiner.on(",").join(wsRequest.getFacets()));
     httpRequest.setParam(FIELDS, Joiner.on(",").join(wsRequest.getAdditionalFields()));
-    return httpRequest.executeProtobuf(SearchProjectsWsResponse.class);
+    return httpRequest.executeProtobufV3(SearchProjectsWsResponse.class);
   }
 
   private void addFavourite(ComponentDto project) {

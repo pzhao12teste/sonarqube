@@ -128,7 +128,7 @@ public class SafeModeHealthActionTest {
     when(healthChecker.checkNode()).thenReturn(health);
     TestRequest request = underTest.newRequest();
 
-    System.HealthResponse healthResponse = request.executeProtobuf(System.HealthResponse.class);
+    System.HealthResponse healthResponse = request.executeProtobufV3(System.HealthResponse.class);
     assertThat(healthResponse.getHealth().name()).isEqualTo(randomStatus.name());
     assertThat(health.getCauses()).isEqualTo(health.getCauses());
   }
@@ -143,7 +143,7 @@ public class SafeModeHealthActionTest {
     Arrays.stream(causes).forEach(healthBuilder::addCause);
     when(healthChecker.checkNode()).thenReturn(healthBuilder.build());
 
-    System.HealthResponse clusterHealthResponse = underTest.newRequest().executeProtobuf(System.HealthResponse.class);
+    System.HealthResponse clusterHealthResponse = underTest.newRequest().executeProtobufV3(System.HealthResponse.class);
     assertThat(clusterHealthResponse.getHealth().name()).isEqualTo(randomStatus.name());
     assertThat(clusterHealthResponse.getCausesList())
       .extracting(System.Cause::getMessage)

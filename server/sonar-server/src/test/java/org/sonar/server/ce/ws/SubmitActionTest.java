@@ -39,7 +39,6 @@ import org.sonar.server.ws.WsActionTester;
 import org.sonar.test.JsonAssert;
 import org.sonarqube.ws.Ce;
 import org.sonarqube.ws.MediaTypes;
-import org.sonarqube.ws.Ce;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
@@ -83,7 +82,7 @@ public class SubmitActionTest {
       .setParam("projectName", "My Project")
       .setPart("report", new ByteArrayInputStream("{binary}".getBytes()), "foo.bar")
       .setMethod("POST")
-      .executeProtobuf(Ce.SubmitResponse.class);
+      .executeProtobufV3(Ce.SubmitResponse.class);
 
     verify(reportSubmitter).submit(eq(organizationKey), eq("my_project"), Matchers.isNull(String.class), eq("My Project"),
       anyMapOf(String.class, String.class), any(InputStream.class));
@@ -104,7 +103,7 @@ public class SubmitActionTest {
       .setMultiParam("characteristic", Arrays.asList(characteristics))
       .setPart("report", new ByteArrayInputStream("{binary}".getBytes()), "foo.bar")
       .setMethod("POST")
-      .executeProtobuf(Ce.SubmitResponse.class);
+      .executeProtobufV3(Ce.SubmitResponse.class);
 
     assertThat(submitResponse.getTaskId()).isEqualTo("TASK_1");
     verify(reportSubmitter).submit(eq(organizationKey), eq("my_project"), Matchers.isNull(String.class), eq("My Project"),

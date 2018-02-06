@@ -166,7 +166,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_RECENTLY_BROWSED, project.getDbKey())
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     // assert match in qualifier "TRK"
     assertThat(response.getResultsList())
@@ -190,7 +190,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_RECENTLY_BROWSED, project.getDbKey())
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     // assert match in qualifier "TRK"
     assertThat(response.getResultsList())
@@ -214,7 +214,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_RECENTLY_BROWSED, project.getDbKey())
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     assertThat(response.getResultsList())
       .flatExtracting(Category::getItemsList)
@@ -231,7 +231,7 @@ public class SuggestionsActionTest {
 
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     // assert match in qualifier "TRK"
     assertThat(response.getResultsList())
@@ -255,7 +255,7 @@ public class SuggestionsActionTest {
 
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     assertThat(response.getResultsList())
       .flatExtracting(Category::getItemsList)
@@ -273,7 +273,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_RECENTLY_BROWSED, project.getDbKey())
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     // assert match in qualifier "TRK"
     assertThat(response.getResultsList())
@@ -297,7 +297,7 @@ public class SuggestionsActionTest {
 
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     // assert match in qualifier "TRK"
     assertThat(response.getResultsList())
@@ -323,7 +323,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_RECENTLY_BROWSED, Stream.of(project3, project1).map(ComponentDto::getDbKey).collect(joining(",")))
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     // assert order of keys
     assertThat(response.getResultsList())
@@ -345,7 +345,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_RECENTLY_BROWSED, project.getDbKey())
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     assertThat(response.getResultsList())
       .extracting(Category::getQ, Category::getItemsCount)
@@ -362,7 +362,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_RECENTLY_BROWSED, project.getDbKey())
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     assertThat(response.getResultsList())
       .extracting(Category::getQ)
@@ -379,7 +379,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_QUERY, project.getDbKey())
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     // assert match in qualifier "TRK"
     assertThat(response.getResultsList())
@@ -404,7 +404,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_QUERY, "S o")
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     assertThat(response.getResultsList()).filteredOn(q -> q.getItemsCount() > 0).isEmpty();
     assertThat(response.getWarning()).contains(SHORT_INPUT_WARNING);
@@ -415,7 +415,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_QUERY, "validLongToken x")
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     assertThat(response.getWarning()).contains(SHORT_INPUT_WARNING);
   }
@@ -430,7 +430,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_QUERY, "Sonar Q")
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     assertThat(response.getResultsList())
       .flatExtracting(Category::getItemsList)
@@ -450,7 +450,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_QUERY, "Project")
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     assertThat(response.getResultsList())
       .flatExtracting(Category::getItemsList)
@@ -474,7 +474,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_QUERY, "Project")
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     assertThat(response.getOrganizationsList())
       .extracting(Organization::getKey, Organization::getName)
@@ -494,7 +494,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_QUERY, "Module")
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     assertThat(response.getResultsList())
       .flatExtracting(Category::getItemsList)
@@ -521,7 +521,7 @@ public class SuggestionsActionTest {
       .setMethod("POST")
       .setParam(PARAM_QUERY, "Module")
       .setParam(PARAM_RECENTLY_BROWSED, Stream.of(module1.getDbKey()).collect(joining(",")))
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     assertThat(response.getResultsList())
       .flatExtracting(Category::getItemsList)
@@ -544,7 +544,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_QUERY, "Module")
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     assertThat(response.getResultsList())
       .flatExtracting(Category::getItemsList)
@@ -561,7 +561,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_QUERY, project.name())
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     assertThat(response.getResultsList())
       .extracting(Category::getQ, Category::getItemsCount)
@@ -587,7 +587,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_QUERY, project.name())
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     assertThat(response.getResultsList())
       .extracting(Category::getQ, c -> c.getItemsList().stream().map(Suggestion::hasProject).findFirst().orElse(null))
@@ -612,7 +612,7 @@ public class SuggestionsActionTest {
     SuggestionsWsResponse response = ws.newRequest()
       .setMethod("POST")
       .setParam(PARAM_QUERY, project.name())
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     assertThat(response.getResultsList())
       .filteredOn(c -> "TRK".equals(c.getQ()))
@@ -737,7 +737,7 @@ public class SuggestionsActionTest {
     }
     ofNullable(more).ifPresent(c -> request.setParam(PARAM_MORE, c.getName()));
     SuggestionsWsResponse response = request
-      .executeProtobuf(SuggestionsWsResponse.class);
+      .executeProtobufV3(SuggestionsWsResponse.class);
 
     // include limited number of results in the response
     assertThat(response.getResultsList())

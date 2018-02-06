@@ -220,7 +220,7 @@ public class CurrentActionTest {
   }
 
   private CurrentWsResponse call() {
-    return ws.newRequest().executeProtobuf(CurrentWsResponse.class);
+    return ws.newRequest().executeProtobufV3(CurrentWsResponse.class);
   }
 
   @Test

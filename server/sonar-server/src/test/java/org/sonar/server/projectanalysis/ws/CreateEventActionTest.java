@@ -335,6 +335,6 @@ public class CreateEventActionTest {
       .setParam(PARAM_NAME, name)
       .setParam(PARAM_ANALYSIS, analysis);
 
-    return httpRequest.executeProtobuf(CreateEventResponse.class);
+    return httpRequest.executeProtobufV3(CreateEventResponse.class);
   }
 }

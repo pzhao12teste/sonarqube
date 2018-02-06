@@ -139,7 +139,7 @@ public class SearchActionTest {
       testRequest.setParam(PARAM_LOGIN, login);
     }
 
-    return testRequest.executeProtobuf(SearchWsResponse.class);
+    return testRequest.executeProtobufV3(SearchWsResponse.class);
   }
 
   private void logInAsSystemAdministrator() {

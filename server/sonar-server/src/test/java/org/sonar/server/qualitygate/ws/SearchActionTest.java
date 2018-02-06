@@ -101,7 +101,7 @@ public class SearchActionTest {
     SearchResponse response = ws.newRequest()
       .setParam(PARAM_GATE_ID, valueOf(qualityGate.getId()))
       .setParam(PARAM_ORGANIZATION, organization.getKey())
-      .executeProtobuf(SearchResponse.class);
+      .executeProtobufV3(SearchResponse.class);
 
     assertThat(response.getResultsList())
       .extracting(Result::getId, Result::getName)
@@ -118,7 +118,7 @@ public class SearchActionTest {
 
     SearchResponse response = ws.newRequest()
       .setParam(PARAM_GATE_ID, valueOf(qualityGate.getId()))
-      .executeProtobuf(SearchResponse.class);
+      .executeProtobufV3(SearchResponse.class);
 
     assertThat(response.getResultsList())
       .extracting(Result::getId, Result::getName)
@@ -134,7 +134,7 @@ public class SearchActionTest {
     SearchResponse response = ws.newRequest()
       .setParam(PARAM_GATE_ID, valueOf(qualityGate.getId()))
       .setParam(PARAM_ORGANIZATION, organization.getKey())
-      .executeProtobuf(SearchResponse.class);
+      .executeProtobufV3(SearchResponse.class);
 
     assertThat(response.getResultsList()).isEmpty();
   }
@@ -151,7 +151,7 @@ public class SearchActionTest {
       .setParam(PARAM_GATE_ID, valueOf(qualityGate.getId()))
       .setParam(PARAM_ORGANIZATION, organization.getKey())
       .setParam(PARAM_SELECTED, ALL.value())
-      .executeProtobuf(SearchResponse.class);
+      .executeProtobufV3(SearchResponse.class);
 
     assertThat(response.getResultsList())
       .extracting(Result::getName, Result::getSelected)
@@ -172,7 +172,7 @@ public class SearchActionTest {
       .setParam(PARAM_GATE_ID, valueOf(qualityGate.getId()))
       .setParam(PARAM_ORGANIZATION, organization.getKey())
       .setParam(PARAM_SELECTED, SELECTED.value())
-      .executeProtobuf(SearchResponse.class);
+      .executeProtobufV3(SearchResponse.class);
 
     assertThat(response.getResultsList())
       .extracting(Result::getName, Result::getSelected)
@@ -192,7 +192,7 @@ public class SearchActionTest {
       .setParam(PARAM_GATE_ID, valueOf(qualityGate.getId()))
       .setParam(PARAM_ORGANIZATION, organization.getKey())
       .setParam(PARAM_SELECTED, DESELECTED.value())
-      .executeProtobuf(SearchResponse.class);
+      .executeProtobufV3(SearchResponse.class);
 
     assertThat(response.getResultsList())
       .extracting(Result::getName, Result::getSelected)
@@ -215,7 +215,7 @@ public class SearchActionTest {
       .setParam(PARAM_GATE_ID, valueOf(qualityGate.getId()))
       .setParam(PARAM_ORGANIZATION, organization.getKey())
       .setParam(PARAM_SELECTED, ALL.value())
-      .executeProtobuf(SearchResponse.class);
+      .executeProtobufV3(SearchResponse.class);
 
     assertThat(response.getResultsList())
       .extracting(Result::getName)
@@ -234,7 +234,7 @@ public class SearchActionTest {
       .setParam(PARAM_GATE_ID, valueOf(qualityGate.getId()))
       .setParam(PARAM_ORGANIZATION, organization.getKey())
       .setParam(PARAM_SELECTED, ALL.value())
-      .executeProtobuf(SearchResponse.class);
+      .executeProtobufV3(SearchResponse.class);
 
     assertThat(response.getResultsList())
       .extracting(Result::getName)
@@ -257,7 +257,7 @@ public class SearchActionTest {
       .setParam(PARAM_SELECTED, ALL.value())
       .setParam(PARAM_PAGE, "1")
       .setParam(PARAM_PAGE_SIZE, "1")
-      .executeProtobuf(SearchResponse.class)
+      .executeProtobufV3(SearchResponse.class)
       .getResultsList())
         .extracting(Result::getName)
         .containsExactlyInAnyOrder(project1.name());
@@ -269,7 +269,7 @@ public class SearchActionTest {
       .setParam(PARAM_SELECTED, ALL.value())
       .setParam(PARAM_PAGE, "2")
       .setParam(PARAM_PAGE_SIZE, "1")
-      .executeProtobuf(SearchResponse.class)
+      .executeProtobufV3(SearchResponse.class)
       .getResultsList())
         .extracting(Result::getName)
         .containsExactlyInAnyOrder(project2.name());
@@ -281,7 +281,7 @@ public class SearchActionTest {
       .setParam(PARAM_SELECTED, ALL.value())
       .setParam(PARAM_PAGE, "1")
       .setParam(PARAM_PAGE_SIZE, "2")
-      .executeProtobuf(SearchResponse.class)
+      .executeProtobufV3(SearchResponse.class)
       .getResultsList())
         .extracting(Result::getName)
         .containsExactlyInAnyOrder(project1.name(), project2.name());
@@ -293,7 +293,7 @@ public class SearchActionTest {
       .setParam(PARAM_SELECTED, ALL.value())
       .setParam(PARAM_PAGE, "1")
       .setParam(PARAM_PAGE_SIZE, "3")
-      .executeProtobuf(SearchResponse.class)
+      .executeProtobufV3(SearchResponse.class)
       .getResultsList())
         .extracting(Result::getName)
         .containsExactlyInAnyOrder(project1.name(), project2.name(), project3.name());
@@ -305,7 +305,7 @@ public class SearchActionTest {
       .setParam(PARAM_SELECTED, ALL.value())
       .setParam(PARAM_PAGE, "3")
       .setParam(PARAM_PAGE_SIZE, "3")
-      .executeProtobuf(SearchResponse.class)
+      .executeProtobufV3(SearchResponse.class)
       .getResultsList())
         .extracting(Result::getName)
         .isEmpty();
@@ -327,7 +327,7 @@ public class SearchActionTest {
       .setParam(PARAM_ORGANIZATION, organization.getKey())
       .setParam(PARAM_PAGE_SIZE, valueOf(10))
       .setParam(PARAM_PAGE, valueOf(1))
-      .executeProtobuf(SearchResponse.class);
+      .executeProtobufV3(SearchResponse.class);
 
     assertThat(response.getMore()).isTrue();
     assertThat(response.getResultsCount()).isEqualTo(10);
@@ -348,7 +348,7 @@ public class SearchActionTest {
       .setParam(PARAM_GATE_ID, valueOf(qualityGate.getId()))
       .setParam(PARAM_ORGANIZATION, organization.getKey())
       .setParam(PARAM_SELECTED, ALL.value())
-      .executeProtobuf(SearchResponse.class);
+      .executeProtobufV3(SearchResponse.class);
 
     assertThat(response.getResultsList())
       .extracting(Result::getName)
@@ -365,7 +365,7 @@ public class SearchActionTest {
     ws.newRequest()
       .setParam(PARAM_GATE_ID, "42")
       .setParam(PARAM_ORGANIZATION, organization.getKey())
-      .executeProtobuf(SearchResponse.class);
+      .executeProtobufV3(SearchResponse.class);
   }
 
   @Test
@@ -380,7 +380,7 @@ public class SearchActionTest {
     ws.newRequest()
       .setParam(PARAM_GATE_ID, valueOf(qualityGate.getId()))
       .setParam(PARAM_ORGANIZATION, organization.getKey())
-      .executeProtobuf(SearchResponse.class);
+      .executeProtobufV3(SearchResponse.class);
   }
 
 }

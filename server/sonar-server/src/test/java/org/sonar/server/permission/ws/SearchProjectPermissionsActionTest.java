@@ -250,7 +250,7 @@ public class SearchProjectPermissionsActionTest extends BasePermissionWsTest<Sea
 
     Permissions.SearchProjectPermissionsWsResponse result = newRequest()
       .setParam(PARAM_QUALIFIER, Qualifiers.PROJECT)
-      .executeProtobuf(Permissions.SearchProjectPermissionsWsResponse.class);
+      .executeProtobufV3(Permissions.SearchProjectPermissionsWsResponse.class);
 
     assertThat(result.getProjectsList())
       .extracting("id")

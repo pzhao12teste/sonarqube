@@ -168,7 +168,7 @@ public class UpdateConditionActionTest {
       .setParam(PARAM_WARNING, "90")
       .setParam(PARAM_ERROR, "45")
       .setParam(PARAM_PERIOD, "1")
-      .executeProtobuf(CreateConditionResponse.class);
+      .executeProtobufV3(CreateConditionResponse.class);
 
     assertThat(response.getId()).isEqualTo(condition.getId());
     assertThat(response.getMetric()).isEqualTo(metric.getKey());

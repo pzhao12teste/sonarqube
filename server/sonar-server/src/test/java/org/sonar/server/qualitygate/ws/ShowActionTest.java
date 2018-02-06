@@ -114,7 +114,7 @@ public class ShowActionTest {
     ShowWsResponse response = ws.newRequest()
       .setParam("name", qualityGate.getName())
       .setParam("organization", organization.getKey())
-      .executeProtobuf(ShowWsResponse.class);
+      .executeProtobufV3(ShowWsResponse.class);
 
     assertThat(response.getId()).isEqualTo(qualityGate.getId());
     assertThat(response.getName()).isEqualTo(qualityGate.getName());
@@ -136,7 +136,7 @@ public class ShowActionTest {
 
     ShowWsResponse response = ws.newRequest()
       .setParam("name", qualityGate.getName())
-      .executeProtobuf(ShowWsResponse.class);
+      .executeProtobufV3(ShowWsResponse.class);
 
     assertThat(response.getId()).isEqualTo(qualityGate.getId());
   }
@@ -150,7 +150,7 @@ public class ShowActionTest {
     ShowWsResponse response = ws.newRequest()
       .setParam("name", qualityGate.getName())
       .setParam("organization", organization.getKey())
-      .executeProtobuf(ShowWsResponse.class);
+      .executeProtobufV3(ShowWsResponse.class);
 
     assertThat(response.getIsBuiltIn()).isTrue();
   }
@@ -164,7 +164,7 @@ public class ShowActionTest {
     ShowWsResponse response = ws.newRequest()
       .setParam("id", qualityGate.getId().toString())
       .setParam("organization", organization.getKey())
-      .executeProtobuf(ShowWsResponse.class);
+      .executeProtobufV3(ShowWsResponse.class);
 
     assertThat(response.getId()).isEqualTo(qualityGate.getId());
     assertThat(response.getName()).isEqualTo(qualityGate.getName());
@@ -179,7 +179,7 @@ public class ShowActionTest {
     ShowWsResponse response = ws.newRequest()
       .setParam("name", qualityGate.getName())
       .setParam("organization", organization.getKey())
-      .executeProtobuf(ShowWsResponse.class);
+      .executeProtobufV3(ShowWsResponse.class);
 
     assertThat(response.getId()).isEqualTo(qualityGate.getId());
     assertThat(response.getName()).isEqualTo(qualityGate.getName());
@@ -197,7 +197,7 @@ public class ShowActionTest {
     ShowWsResponse response = ws.newRequest()
       .setParam("name", qualityGate.getName())
       .setParam("organization", organization.getKey())
-      .executeProtobuf(ShowWsResponse.class);
+      .executeProtobufV3(ShowWsResponse.class);
 
     Actions actions = response.getActions();
     assertThat(actions.getRename()).isTrue();
@@ -218,7 +218,7 @@ public class ShowActionTest {
     ShowWsResponse response = ws.newRequest()
       .setParam("name", qualityGate.getName())
       .setParam("organization", organization.getKey())
-      .executeProtobuf(ShowWsResponse.class);
+      .executeProtobufV3(ShowWsResponse.class);
 
     Actions actions = response.getActions();
     assertThat(actions.getRename()).isTrue();
@@ -240,7 +240,7 @@ public class ShowActionTest {
     ShowWsResponse response = ws.newRequest()
       .setParam("name", qualityGate.getName())
       .setParam("organization", organization.getKey())
-      .executeProtobuf(ShowWsResponse.class);
+      .executeProtobufV3(ShowWsResponse.class);
 
     Actions actions = response.getActions();
     assertThat(actions.getRename()).isFalse();
@@ -261,7 +261,7 @@ public class ShowActionTest {
     ShowWsResponse response = ws.newRequest()
       .setParam("name", qualityGate.getName())
       .setParam("organization", organization.getKey())
-      .executeProtobuf(ShowWsResponse.class);
+      .executeProtobufV3(ShowWsResponse.class);
 
     Actions actions = response.getActions();
     assertThat(actions.getRename()).isFalse();

@@ -192,7 +192,7 @@ public class SearchActionTest {
     setNullable(page, p -> request.setParam(Param.PAGE, p.toString()));
     setNullable(pageSize, ps -> request.setParam(Param.PAGE_SIZE, ps.toString()));
 
-    return request.executeProtobuf(SearchResponse.class);
+    return request.executeProtobufV3(SearchResponse.class);
   }
 
   private SearchResponse call() {

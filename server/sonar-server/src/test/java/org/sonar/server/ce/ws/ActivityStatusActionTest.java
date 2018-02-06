@@ -194,6 +194,6 @@ public class ActivityStatusActionTest {
     if (componentKey != null) {
       request.setParam(DEPRECATED_PARAM_COMPONENT_KEY, componentKey);
     }
-    return request.executeProtobuf(Ce.ActivityStatusWsResponse.class);
+    return request.executeProtobufV3(Ce.ActivityStatusWsResponse.class);
   }
 }

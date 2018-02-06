@@ -603,7 +603,7 @@ public class CreateActionTest {
   private CreateWsResponse executeRequest(@Nullable String name, @Nullable String key, @Nullable String description, @Nullable String url, @Nullable String avatar) {
     TestRequest request = wsTester.newRequest();
     populateRequest(name, key, description, url, avatar, request);
-    return request.executeProtobuf(CreateWsResponse.class);
+    return request.executeProtobufV3(CreateWsResponse.class);
   }
 
   private String executeJsonRequest(@Nullable String name, @Nullable String key, @Nullable String description, @Nullable String url, @Nullable String avatar) {

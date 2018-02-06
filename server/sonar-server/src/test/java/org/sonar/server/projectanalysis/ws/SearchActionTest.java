@@ -457,6 +457,6 @@ public class SearchActionTest {
     setNullable(wsRequest.getFrom(), from -> request.setParam(PARAM_FROM, from));
     setNullable(wsRequest.getTo(), to -> request.setParam(PARAM_TO, to));
 
-    return request.executeProtobuf(SearchResponse.class);
+    return request.executeProtobufV3(SearchResponse.class);
   }
 }

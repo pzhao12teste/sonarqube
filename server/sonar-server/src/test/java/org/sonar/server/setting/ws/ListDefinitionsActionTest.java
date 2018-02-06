@@ -409,7 +409,7 @@ public class ListDefinitionsActionTest {
     ListDefinitionsWsResponse result = ws.newRequest()
       .setParam("component", branch.getKey())
       .setParam("branch", branch.getBranch())
-      .executeProtobuf(Settings.ListDefinitionsWsResponse.class);
+      .executeProtobufV3(Settings.ListDefinitionsWsResponse.class);
 
     assertThat(result.getDefinitionsList()).extracting(Definition::getKey).containsExactlyInAnyOrder("sonar.leak.period");
   }
@@ -519,7 +519,7 @@ public class ListDefinitionsActionTest {
     if (key != null) {
       request.setParam("component", key);
     }
-    return request.executeProtobuf(ListDefinitionsWsResponse.class);
+    return request.executeProtobufV3(ListDefinitionsWsResponse.class);
   }
 
   private void logIn() {
