@@ -262,3 +262,25 @@ export interface Group {
   membersCount: number;
   name: string;
 }
+
+export interface IdentityProvider {
+  backgroundColor: string;
+  helpMessage?: string;
+  iconPath: string;
+  key: string;
+  name: string;
+}
+
+export interface User {
+  active: boolean;
+  avatar?: string;
+  email?: string;
+  externalIdentity?: string;
+  externalProvider?: string;
+  groups?: string[];
+  local: boolean;
+  login: string;
+  name: string;
+  scmAccounts?: string[];
+  tokensCount?: number;
+}
