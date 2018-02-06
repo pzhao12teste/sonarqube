@@ -26,10 +26,10 @@ import ConfirmButton from '../../../components/controls/ConfirmButton';
 import CreateWebhookForm from './CreateWebhookForm';
 import { translate, translateWithParameters } from '../../../helpers/l10n';
 import { Webhook } from '../../../app/types';
-import { deleteWebhook, updateWebhook } from '../../../api/webhooks';
 
 interface Props {
-  refreshWebhooks: () => Promise<void>;
+  onDelete: (key: string) => Promise<void>;
+  onUpdate: (data: { key: string; name: string; url: string }) => Promise<void>;
   webhook: Webhook;
 }
 
@@ -49,25 +49,28 @@ export default class WebhookActions extends React.PureComponent<Props, State> {
     this.mounted = false;
   }
 
-  handleDelete = () =>
-    deleteWebhook({ key: this.props.webhook.key }).then(this.props.refreshWebhooks);
+  handleDelete = () => {
+    return this.props.onDelete(this.props.webhook.key);
+  };
 
-  handleUpdate = (data: { name: string; url: string }) =>
-    updateWebhook({ ...data, key: this.props.webhook.key }).then(
-      this.props.refreshWebhooks,
-      () => {}
-    );
+  handleUpdate = (data: { name: string; url: string }) => {
+    return this.props.onUpdate({ ...data, key: this.props.webhook.key });
+  };
 
-  handleUpdateClick = () => this.setState({ updating: true });
+  handleUpdateClick = () => {
+    this.setState({ updating: true });
+  };
 
-  handleUpdatingStop = () => this.setState({ updating: false });
+  handleUpdatingStop = () => {
+    this.setState({ updating: false });
+  };
 
   render() {
     const { webhook } = this.props;
 
     return (
       <>
-        <ActionsDropdown className="ig-spacer-left">
+        <ActionsDropdown className="big-spacer-left">
           <ActionsDropdownItem className="js-webhook-update" onClick={this.handleUpdateClick}>
             {translate('update_verb')}
           </ActionsDropdownItem>

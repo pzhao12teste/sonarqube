@@ -25,6 +25,12 @@ const webhook = { key: '1', name: 'my webhook', url: 'http://webhook.target' };
 
 it('should render correctly', () => {
   expect(
-    shallow(<WebhookItem webhook={webhook} refreshWebhooks={jest.fn(() => Promise.resolve())} />)
+    shallow(
+      <WebhookItem
+        onDelete={jest.fn(() => Promise.resolve())}
+        onUpdate={jest.fn(() => Promise.resolve())}
+        webhook={webhook}
+      />
+    )
   ).toMatchSnapshot();
 });

@@ -35,20 +35,17 @@ it('should not allow to create a new webhook', () => {
 });
 
 it('should display the create form', () => {
-  const wrapper = getWrapper();
+  const onCreate = jest.fn();
+  const wrapper = getWrapper({ onCreate });
   click(wrapper.find('.js-webhook-create'));
-  expect(wrapper.find('CreateWebhookForm')).toHaveLength(1);
+  expect(wrapper.find('CreateWebhookForm').exists()).toBeTruthy();
+  wrapper.find('CreateWebhookForm').prop<Function>('onDone')({
+    name: 'foo',
+    url: 'http://foo.bar'
+  });
+  expect(onCreate).lastCalledWith({ name: 'foo', url: 'http://foo.bar' });
 });
 
 function getWrapper(props = {}) {
-  return shallow(
-    <PageActions
-      onCreate={jest.fn()}
-      loading={false}
-      organization="foo"
-      project="bar"
-      webhooksCount={5}
-      {...props}
-    />
-  );
+  return shallow(<PageActions onCreate={jest.fn()} loading={false} webhooksCount={5} {...props} />);
 }

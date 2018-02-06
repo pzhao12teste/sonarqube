@@ -22,7 +22,7 @@ import { Helmet } from 'react-helmet';
 import PageActions from './PageActions';
 import PageHeader from './PageHeader';
 import WebhooksList from './WebhooksList';
-import { searchWebhooks } from '../../../api/webhooks';
+import { createWebhook, deleteWebhook, searchWebhooks, updateWebhook } from '../../../api/webhooks';
 import { LightComponent, Organization, Webhook } from '../../../app/types';
 import { translate } from '../../../helpers/l10n';
 
@@ -42,7 +42,6 @@ export default class App extends React.PureComponent<Props, State> {
 
   componentDidMount() {
     this.mounted = true;
-    this.setState({ loading: true });
     this.fetchWebhooks();
   }
 
@@ -50,11 +49,8 @@ export default class App extends React.PureComponent<Props, State> {
     this.mounted = false;
   }
 
-  fetchWebhooks = ({ organization, component } = this.props) =>
-    searchWebhooks({
-      organization: organization && organization.key,
-      project: component && component.key
-    }).then(
+  fetchWebhooks = () => {
+    return searchWebhooks(this.getScopeParams()).then(
       ({ webhooks }) => {
         if (this.mounted) {
           this.setState({ loading: false, webhooks });
@@ -66,14 +62,47 @@ export default class App extends React.PureComponent<Props, State> {
         }
       }
     );
+  };
 
-  handleCreateWebhook = (webhook: Webhook) =>
-    this.setState(state => ({ webhooks: [...state.webhooks, webhook] }));
+  getScopeParams = ({ organization, component } = this.props) => {
+    return { organization: organization && organization.key, project: component && component.key };
+  };
+
+  handleCreate = (data: { name: string; url: string }) => {
+    return createWebhook({
+      ...data,
+      ...this.getScopeParams()
+    }).then(({ webhook }) => {
+      if (this.mounted) {
+        this.setState(({ webhooks }) => ({ webhooks: [...webhooks, webhook] }));
+      }
+    });
+  };
+
+  handleDelete = (key: string) => {
+    return deleteWebhook({ key }).then(() => {
+      if (this.mounted) {
+        this.setState(({ webhooks }) => ({
+          webhooks: webhooks.filter(webhook => webhook.key !== key)
+        }));
+      }
+    });
+  };
+
+  handleUpdate = (data: { key: string; name: string; url: string }) => {
+    return updateWebhook(data).then(() => {
+      if (this.mounted) {
+        this.setState(({ webhooks }) => ({
+          webhooks: webhooks.map(
+            webhook => (webhook.key === data.key ? { ...webhook, ...data } : webhook)
+          )
+        }));
+      }
+    });
+  };
 
   render() {
     const { loading, webhooks } = this.state;
-    const organization = this.props.organization && this.props.organization.key;
-    const project = this.props.component && this.props.component.key;
 
     return (
       <div className="page page-limited">
@@ -82,16 +111,18 @@ export default class App extends React.PureComponent<Props, State> {
         <PageHeader loading={loading}>
           <PageActions
             loading={loading}
-            onCreate={this.handleCreateWebhook}
-            organization={organization}
-            project={project}
+            onCreate={this.handleCreate}
             webhooksCount={webhooks.length}
           />
         </PageHeader>
 
         {!loading && (
           <div className="boxed-group boxed-group-inner">
-            <WebhooksList refreshWebhooks={this.fetchWebhooks} webhooks={webhooks} />
+            <WebhooksList
+              onDelete={this.handleDelete}
+              onUpdate={this.handleUpdate}
+              webhooks={webhooks}
+            />
           </div>
         )}
       </div>

@@ -57,11 +57,11 @@ it('should prevent from calling onDone when the url is not valid', async () => {
   submit(wrapper.find('form'));
 
   await new Promise(setImmediate);
-  expect(onDone).toHaveBeenCalledTimes(0);
+  expect(onDone).not.toHaveBeenCalled();
 });
 
 function getWrapper(props = {}) {
   return shallow(
     <CreateWebhookForm onClose={jest.fn()} onDone={jest.fn(() => Promise.resolve())} {...props} />
-  );
+  ).dive();
 }

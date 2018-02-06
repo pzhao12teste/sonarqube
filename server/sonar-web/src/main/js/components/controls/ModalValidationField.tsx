@@ -20,7 +20,7 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
 
-type ValidateElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+type ValidateElement = HTMLInputElement | HTMLTextAreaElement;
 
 interface Props {
   children: (

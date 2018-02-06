@@ -29,15 +29,36 @@ it('should render correctly', () => {
 });
 
 it('should display the update webhook form', () => {
-  const wrapper = getWrapper();
+  const onUpdate = jest.fn(() => Promise.resolve());
+  const wrapper = getWrapper({ onUpdate });
   click(wrapper.find('.js-webhook-update'));
-  expect(wrapper.find('CreateWebhookForm')).toHaveLength(1);
+  expect(wrapper.find('CreateWebhookForm').exists()).toBeTruthy();
+  wrapper.find('CreateWebhookForm').prop<Function>('onDone')({
+    name: webhook.name,
+    url: webhook.url
+  });
+  expect(onUpdate).lastCalledWith(webhook);
+});
+
+it('should display the delete webhook form', () => {
+  const onDelete = jest.fn(() => Promise.resolve());
+  const wrapper = getWrapper({ onDelete });
+  click(
+    wrapper
+      .find('ConfirmButton')
+      .dive()
+      .find('.js-webhook-delete')
+  );
+  expect(wrapper.find('ConfirmButton').exists()).toBeTruthy();
+  wrapper.find('ConfirmButton').prop<Function>('onConfirm')();
+  expect(onDelete).lastCalledWith(webhook.key);
 });
 
 function getWrapper(props = {}) {
   return shallow(
     <WebhookActions
-      refreshWebhooks={jest.fn(() => Promise.resolve())}
+      onDelete={jest.fn(() => Promise.resolve())}
+      onUpdate={jest.fn(() => Promise.resolve())}
       webhook={webhook}
       {...props}
     />

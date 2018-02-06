@@ -20,15 +20,11 @@
 import * as React from 'react';
 import CreateWebhookForm from './CreateWebhookForm';
 import Tooltip from '../../../components/controls/Tooltip';
-import { createWebhook } from '../../../api/webhooks';
 import { translate, translateWithParameters } from '../../../helpers/l10n';
-import { Webhook } from '../../../app/types';
 
 interface Props {
   loading: boolean;
-  onCreate: (webhook: Webhook) => void;
-  organization?: string;
-  project?: string;
+  onCreate: (data: { name: string; url: string }) => Promise<void>;
   webhooksCount: number;
 }
 
@@ -41,6 +37,7 @@ const WEBHOOKS_LIMIT = 10;
 export default class PageActions extends React.PureComponent<Props, State> {
   mounted: boolean;
   state: State = { openCreate: false };
+
   componentDidMount() {
     this.mounted = true;
   }
@@ -49,20 +46,15 @@ export default class PageActions extends React.PureComponent<Props, State> {
     this.mounted = false;
   }
 
-  handleCreate = (data: { name: string; url: string }) =>
-    createWebhook({
-      ...data,
-      organization: this.props.organization,
-      project: this.props.project
-    }).then(({ webhook }) => this.props.onCreate(webhook));
-
   handleCreateClose = () => {
     if (this.mounted) {
       this.setState({ openCreate: false });
     }
   };
 
-  handleCreateOpen = () => this.setState({ openCreate: true });
+  handleCreateOpen = () => {
+    this.setState({ openCreate: true });
+  };
 
   renderCreate = () => {
     if (this.props.webhooksCount >= WEBHOOKS_LIMIT) {
@@ -81,7 +73,7 @@ export default class PageActions extends React.PureComponent<Props, State> {
           {translate('create')}
         </button>
         {this.state.openCreate && (
-          <CreateWebhookForm onClose={this.handleCreateClose} onDone={this.handleCreate} />
+          <CreateWebhookForm onClose={this.handleCreateClose} onDone={this.props.onCreate} />
         )}
       </>
     );

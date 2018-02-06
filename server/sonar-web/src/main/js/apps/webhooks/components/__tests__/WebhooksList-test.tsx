@@ -37,8 +37,9 @@ it('should correctly render the webhooks', () => {
 function getWrapper(props = {}) {
   return shallow(
     <WebhooksList
+      onDelete={jest.fn(() => Promise.resolve())}
+      onUpdate={jest.fn(() => Promise.resolve())}
       webhooks={webhooks}
-      refreshWebhooks={jest.fn(() => Promise.resolve())}
       {...props}
     />
   );

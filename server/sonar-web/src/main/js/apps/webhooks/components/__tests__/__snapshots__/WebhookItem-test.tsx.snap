@@ -12,7 +12,8 @@ exports[`should render correctly 1`] = `
     className="thin nowrap text-right"
   >
     <WebhookActions
-      refreshWebhooks={[MockFunction]}
+      onDelete={[MockFunction]}
+      onUpdate={[MockFunction]}
       webhook={
         Object {
           "key": "1",

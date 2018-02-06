@@ -18,7 +18,8 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 import * as React from 'react';
-import Modal from '../../../components/controls/Modal';
+import DeferredSpinner from '../../../components/common/DeferredSpinner';
+import SimpleModal from '../../../components/controls/SimpleModal';
 import ModalValidationField from '../../../components/controls/ModalValidationField';
 import { Webhook } from '../../../app/types';
 import { translate } from '../../../helpers/l10n';
@@ -32,14 +33,11 @@ interface Props {
 interface State {
   name: string;
   nameError?: string;
-  submitting: boolean;
   url: string;
   urlError?: string;
 }
 
 export default class CreateWebhookForm extends React.PureComponent<Props, State> {
-  mounted: boolean;
-
   constructor(props: Props) {
     super(props);
     const { webhook } = props;
@@ -48,45 +46,31 @@ export default class CreateWebhookForm extends React.PureComponent<Props, State>
     this.state = {
       name,
       nameError: this.validateName(name),
-      submitting: false,
       url,
       urlError: this.validateUrl(url)
     };
   }
 
-  componentDidMount() {
-    this.mounted = true;
-  }
-
-  componentWillUnmount() {
-    this.mounted = false;
-  }
-
-  handleCancelClick = (event: React.SyntheticEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    event.currentTarget.blur();
-    this.props.onClose();
+  handleNameChange = (name: string) => {
+    this.setState({ name, nameError: this.validateName(name) });
   };
 
-  handleNameChange = (name: string) => this.setState({ name, nameError: this.validateName(name) });
+  handleUrlChange = (url: string) => {
+    this.setState({ url, urlError: this.validateUrl(url) });
+  };
 
-  handleUrlChange = (url: string) => this.setState({ url, urlError: this.validateUrl(url) });
-
-  handleFormSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (this.isValid()) {
-      this.setState({ submitting: true });
-      this.props
-        .onDone({ name: this.state.name, url: this.state.url })
-        .then(this.props.onClose, () => {
-          if (this.mounted) {
-            this.setState({ submitting: false });
-          }
-        });
+  handleSubmit = () => {
+    if (!this.isValid()) {
+      return undefined;
     }
+    return this.props
+      .onDone({ name: this.state.name, url: this.state.url })
+      .then(this.props.onClose);
   };
 
-  isValid = () => !this.state.nameError && !this.state.urlError;
+  isValid = () => {
+    return !this.state.nameError && !this.state.urlError;
+  };
 
   validateName = (name: string) => {
     if (!name.trim()) {
@@ -105,89 +89,91 @@ export default class CreateWebhookForm extends React.PureComponent<Props, State>
     if (url.indexOf(':', 6) > 0 && url.indexOf('@') <= 0) {
       return translate('webhooks.url.bad_auth');
     }
+    return undefined;
   };
 
   render() {
-    const { submitting } = this.state;
     const isUpdate = !!this.props.webhook;
     const modalHeader = isUpdate ? translate('webhooks.update') : translate('webhooks.create');
 
     return (
-      <Modal contentLabel={modalHeader} onRequestClose={this.props.onClose}>
-        <form onSubmit={this.handleFormSubmit}>
-          <div className="modal-head">
-            <h2>{modalHeader}</h2>
-          </div>
+      <SimpleModal header={modalHeader} onClose={this.props.onClose} onSubmit={this.handleSubmit}>
+        {({ onCloseClick, onFormSubmit, submitting }) => (
+          <form onSubmit={onFormSubmit}>
+            <div className="modal-head">
+              <h2>{modalHeader}</h2>
+            </div>
 
-          <div className="modal-body">
-            <ModalValidationField
-              error={this.state.nameError}
-              label={
-                <label htmlFor="webhook-name">
-                  {translate('webhooks.name')}
-                  <em className="mandatory">*</em>
-                </label>
-              }
-              onChange={this.handleNameChange}
-              value={this.state.name}>
-              {({ className, onBlur, onChange, onFocus, value }) => (
-                <input
-                  autoFocus={true}
-                  className={className}
-                  disabled={submitting}
-                  id="webhook-name"
-                  name="name"
-                  onBlur={onBlur}
-                  onChange={onChange}
-                  onFocus={onFocus}
-                  type="text"
-                  value={value}
-                />
-              )}
-            </ModalValidationField>
+            <div className="modal-body">
+              <ModalValidationField
+                error={this.state.nameError}
+                label={
+                  <label htmlFor="webhook-name">
+                    {translate('webhooks.name')}
+                    <em className="mandatory">*</em>
+                  </label>
+                }
+                onChange={this.handleNameChange}
+                value={this.state.name}>
+                {({ className, onBlur, onChange, onFocus, value }) => (
+                  <input
+                    autoFocus={true}
+                    className={className}
+                    disabled={submitting}
+                    id="webhook-name"
+                    name="name"
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    onFocus={onFocus}
+                    type="text"
+                    value={value}
+                  />
+                )}
+              </ModalValidationField>
 
-            <ModalValidationField
-              description={translate('webhooks.url.description')}
-              error={this.state.urlError}
-              label={
-                <label htmlFor="webhook-url">
-                  {translate('webhooks.url')}
-                  <em className="mandatory">*</em>
-                </label>
-              }
-              onChange={this.handleUrlChange}
-              value={this.state.url}>
-              {({ className, onBlur, onChange, onFocus, value }) => (
-                <input
-                  className={className}
-                  disabled={submitting}
-                  id="webhook-url"
-                  name="url"
-                  onBlur={onBlur}
-                  onChange={onChange}
-                  onFocus={onFocus}
-                  type="text"
-                  value={value}
-                />
-              )}
-            </ModalValidationField>
-          </div>
+              <ModalValidationField
+                description={translate('webhooks.url.description')}
+                error={this.state.urlError}
+                label={
+                  <label htmlFor="webhook-url">
+                    {translate('webhooks.url')}
+                    <em className="mandatory">*</em>
+                  </label>
+                }
+                onChange={this.handleUrlChange}
+                value={this.state.url}>
+                {({ className, onBlur, onChange, onFocus, value }) => (
+                  <input
+                    className={className}
+                    disabled={submitting}
+                    id="webhook-url"
+                    name="url"
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    onFocus={onFocus}
+                    type="text"
+                    value={value}
+                  />
+                )}
+              </ModalValidationField>
+            </div>
 
-          <footer className="modal-foot">
-            {submitting && <i className="spinner spacer-right" />}
-            <button disabled={submitting || !this.isValid()} type="submit">
-              {isUpdate ? translate('update_verb') : translate('create')}
-            </button>
-            <button
-              className="button-link"
-              disabled={submitting}
-              onClick={this.handleCancelClick}
-              type="reset">
-              {translate('cancel')}
-            </button>
-          </footer>
-        </form>
-      </Modal>
+            <footer className="modal-foot">
+              <DeferredSpinner className="spacer-right" loading={submitting} />
+              <button disabled={submitting || !this.isValid()} type="submit">
+                {isUpdate ? translate('update_verb') : translate('create')}
+              </button>
+              <button
+                className="button-link"
+                disabled={submitting}
+                onClick={onCloseClick}
+                type="reset">
+                {translate('cancel')}
+              </button>
+            </footer>
+          </form>
+        )}
+      </SimpleModal>
     );
   }
 }

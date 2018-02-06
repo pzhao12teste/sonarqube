@@ -24,7 +24,8 @@ exports[`should correctly render the webhooks 1`] = `
   <tbody>
     <WebhookItem
       key="1"
-      refreshWebhooks={[MockFunction]}
+      onDelete={[MockFunction]}
+      onUpdate={[MockFunction]}
       webhook={
         Object {
           "key": "1",
@@ -35,7 +36,8 @@ exports[`should correctly render the webhooks 1`] = `
     />
     <WebhookItem
       key="2"
-      refreshWebhooks={[MockFunction]}
+      onDelete={[MockFunction]}
+      onUpdate={[MockFunction]}
       webhook={
         Object {
           "key": "2",

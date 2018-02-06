@@ -55,8 +55,10 @@ exports[`should correctly call onDone and onClose after submit 1`] = `
     <footer
       className="modal-foot"
     >
-      <i
-        className="spinner spacer-right"
+      <DeferredSpinner
+        className="spacer-right"
+        loading={true}
+        timeout={100}
       />
       <button
         disabled={true}
@@ -134,6 +136,11 @@ exports[`should render correctly when creating a new webhook 1`] = `
     <footer
       className="modal-foot"
     >
+      <DeferredSpinner
+        className="spacer-right"
+        loading={false}
+        timeout={100}
+      />
       <button
         disabled={true}
         type="submit"
@@ -208,6 +215,11 @@ exports[`should render correctly when updating a webhook 1`] = `
     <footer
       className="modal-foot"
     >
+      <DeferredSpinner
+        className="spacer-right"
+        loading={false}
+        timeout={100}
+      />
       <button
         disabled={false}
         type="submit"

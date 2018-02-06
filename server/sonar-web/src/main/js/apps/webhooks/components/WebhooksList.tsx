@@ -23,9 +23,8 @@ import { Webhook } from '../../../app/types';
 import { translate } from '../../../helpers/l10n';
 
 interface Props {
-  organization?: string;
-  project?: string;
-  refreshWebhooks: () => Promise<void>;
+  onDelete: (key: string) => Promise<void>;
+  onUpdate: (data: { key: string; name: string; url: string }) => Promise<void>;
   webhooks: Webhook[];
 }
 
@@ -52,7 +51,8 @@ export default class WebhooksList extends React.PureComponent<Props> {
           {webhooks.map(webhook => (
             <WebhookItem
               key={webhook.key}
-              refreshWebhooks={this.props.refreshWebhooks}
+              onDelete={this.props.onDelete}
+              onUpdate={this.props.onUpdate}
               webhook={webhook}
             />
           ))}

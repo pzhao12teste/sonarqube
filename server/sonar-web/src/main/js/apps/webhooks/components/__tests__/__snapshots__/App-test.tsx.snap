@@ -36,7 +36,6 @@ exports[`should fetch webhooks and display them 1`] = `
     <PageActions
       loading={false}
       onCreate={[Function]}
-      organization="foo"
       webhooksCount={0}
     />
   </PageHeader>
@@ -44,7 +43,8 @@ exports[`should fetch webhooks and display them 1`] = `
     className="boxed-group boxed-group-inner"
   >
     <WebhooksList
-      refreshWebhooks={[Function]}
+      onDelete={[Function]}
+      onUpdate={[Function]}
       webhooks={Array []}
     />
   </div>

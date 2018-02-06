@@ -3,7 +3,7 @@
 exports[`should render correctly 1`] = `
 <React.Fragment>
   <ActionsDropdown
-    className="ig-spacer-left"
+    className="big-spacer-left"
   >
     <ActionsDropdownItem
       className="js-webhook-update"
